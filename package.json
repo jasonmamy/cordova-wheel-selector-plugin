@@ -1,0 +1,12 @@
+{
+  "name": "cordova-plugin-template",
+  "version": "1.0.0",
+  "cordova": {
+    "id": "cordova-plugin-template",
+    "platforms": [
+      "android",
+      "ios",
+    ]
+  },
+  "description": "A starting point for a Cordova Plugin"
+}

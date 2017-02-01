@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="cordova-wheel-selector-plugin"
+    version="1.0.0">
+    <name>Cordova Wheel Selector Plugin</name>
+    <description>A simple wheel selector plugin</description>
+    <license>MIT</license>
+    <keywords></keywords>
+    <repo>https://github.com/driftyco/cordova-plugin-template.git</repo>
+    <issue>https://github.com/driftyco/cordova-plugin-template/issues</issue>
+
+
+<!--<platform name="browser">                                              -->
+<!--    <config-file target="config.xml" parent="/*">                      -->
+<!--        <feature name="MyCordovaPlugin">                               -->
+<!--            <param name="browser-package" value="MyCordovaPlugin" />   -->
+<!--        </feature>                                                     -->
+<!--    </config-file>                                                     -->
+<!--                                                                       -->
+<!--    <js-module src="src/browser/PluginProxy.js" name="MyCordovaPlugin">-->
+<!--        <runs />                                                       -->
+<!--    </js-module>                                                       -->
+<!--</platform>                                                            -->
+
+    <!-- android -->
+    <platform name="android">
+        <js-module src="www/selectorplugin.js" name="plugin">
+            <runs/>
+
+            <!-- This is the window variable name you want, like window.MyCordovaPlugin -->
+            <clobbers target="SelectorCordovaPlugin" />
+        </js-module>
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="SelectorCordovaPlugin">
+                <param name="android-package" value="com.wellseek.cordova.SelectorCordovaPlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/com/wellseek/cordova/SelectorCordovaPlugin.java" target-dir="src/com/wellseek/cordova/" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <js-module src="www/selectorplugin.js" name="plugin">
+            <runs/>
+            <clobbers target="SelectorCordovaPlugin" />
+        </js-module>
+        <config-file target="config.xml" parent="/*">
+            <feature name="SelectorCordovaPlugin">
+                <param name="ios-package" value="SelectorCordovaPlugin" onload="true" />
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/MyCordovaPlugin.h" />
+        <source-file src="src/ios/MyCordovaPlugin.m" />
+    </platform>
+</plugin>
