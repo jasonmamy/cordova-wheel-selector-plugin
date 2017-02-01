@@ -4,7 +4,7 @@ Wheel selector for Cordova (Android/iOS)
 
 
 
-![Fruits](examples/images/fruit.png =50x20)
+![Fruits](examples/images/fruit.png)
 
 
 
