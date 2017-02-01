@@ -1,11 +1,40 @@
 # cordova-wheel-selector-plugin
-Wheel selector for Cordova (Android/iOS)
+Wheel selector for Cordova (Android/iOS).
+
+Can use in Cordova or Ionic (v1) frameworks
+
+# Installation
+
+TBD: push to npm registry or something so can have a nicer install
+
 
 # Usage
-TBD
 
-# Screenshots
+## The options that can be set
+
+```
+var config = {
+    title: "The title",
+    items:[
+        //how many items to display, see examples below
+    ],
+    positiveButtonText: "Yes",
+    negativeButtonText: "No",
+    theme: "light | dark",  //lighter or darker theme
+    wrapWheelText: true | false, //wrap the wheel for infinite scroll
+    
+    //advanced usage:
+    displayKey: "description" //so can send in different json TBD: have example for this
+    
+};
+
+```
+
+# Examples and Screenshots
 ## Sample Data
+
+Create your data (or get it from a server API call):
+
 ```
 var data = {
     numbers: [ 
@@ -45,7 +74,14 @@ var data = {
     ]
 };
 
-//config here... (see config for each screenshot below)
+
+
+//config here... (see config for each screenshot below to get desired results)
+var config = {...};
+
+
+
+//do something useful with the result:
 
 window.SelectorCordovaPlugin.showSelector(config, function(result) {
     console.log("result: " + JSON.stringify(result) );
