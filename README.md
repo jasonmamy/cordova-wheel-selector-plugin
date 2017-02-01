@@ -1,7 +1,7 @@
 # cordova-wheel-selector-plugin
-Wheel selector for Cordova (Android/iOS).
+Native wheel selector for Cordova (Android/iOS).
 
-Can use in Cordova or Ionic (v1) frameworks
+Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky javascript used
 
 # Installation
 
@@ -183,3 +183,4 @@ Produces:
 # TODO
 * implement ios portion
 * implement normal web browser portion so can run locally in desktop browser
+* add more error handling on weird cases
