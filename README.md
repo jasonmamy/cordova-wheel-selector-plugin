@@ -102,8 +102,8 @@ var config = {
         [data.numbers],
         [data.fruit]
     ],
-    positiveButtonText: "Yes",
-    negativeButtonText: "No"
+    positiveButtonText: "Done",
+    negativeButtonText: "Cancel"
 };
 
 ```
