@@ -1,7 +1,27 @@
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [cordova-wheel-selector-plugin](#cordova-wheel-selector-plugin)
+- [Installation](#installation)
+- [Usage](#usage)
+	- [The options that can be set](#the-options-that-can-be-set)
+- [Screenshots and Examples](#screenshots-and-examples)
+	- [Sample Data](#sample-data)
+	- [Single items, white theme](#single-items-white-theme)
+	- [2 items white theme](#2-items-white-theme)
+		- [Results:](#results)
+		- [Ouputs:](#ouputs)
+	- [2 items dark theme](#2-items-dark-theme)
+	- [Many items dark theme, with 'wheel wrapping'](#many-items-dark-theme-with-wheel-wrapping)
+	- [More complicated usage](#more-complicated-usage)
+- [TODO](#todo)
+
+<!-- /TOC -->
+
+
 # cordova-wheel-selector-plugin
 Native wheel selector for Cordova (Android/iOS).
 
-Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky javascript used
+Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky javascript used.  Can send in as many *data sets* as needed, the UI will *grow* or *shrink* accordingly (see examples for info).
 
 # Installation
 
@@ -24,22 +44,22 @@ var config = {
     negativeButtonText: "No",
     theme: "light | dark",  //lighter or darker theme
     wrapWheelText: true | false, //wrap the wheel for infinite scroll
-    
+
     //advanced usage:
-    displayKey: "description" //so can send in different json TBD: have example for this
-    
+    displayKey: "description" //so can send in different json - see examples below
+
 };
 
 ```
 
-# Examples and Screenshots
+# Screenshots and Examples
 ## Sample Data
 
 Create your data (or get it from a server API call):
 
 ```js
 var data = {
-    numbers: [ 
+    numbers: [
         {description: "1"},
         {description: "2"},
         {description: "3"},
@@ -76,15 +96,10 @@ var data = {
     ]
 };
 
-
-
 //config here... (see config for each screenshot below to get desired results)
 var config = {...};
 
-
-
 //do something useful with the result:
-
 window.SelectorCordovaPlugin.showSelector(config, function(result) {
     console.log("result: " + JSON.stringify(result) );
 }, function() {
@@ -109,11 +124,10 @@ var config = {
 };
 
 ```
-Produces: 
+Produces:
 
 ![Fruits](examples/images/single_items.png)
 
-Results:
 
 
 ## 2 items white theme
@@ -130,7 +144,7 @@ var config = {
 };
 
 ```
-Produces: 
+Produces:
 
 ![Fruits](examples/images/fruit.png)
 
@@ -173,7 +187,7 @@ var config = {
 };
 
 ```
-Produces: 
+Produces:
 
 ![Measurements](examples/images/quantity_dark_theme.png)
 
@@ -197,14 +211,14 @@ var config = {
 };
 
 ```
-Produces: 
+Produces:
 
 ![Measurements](examples/images/multiple_items.png)
 
 
 ## More complicated usage
 
-In some cases (i.e. retrieving data from a server API call), you may get back differing JSON, in that case you can specify which *key* to display in the selector using the *displayKey* in the config, for example if we wish to display the *text* fields in the corresponding JSON from the following data set: 
+In some cases (i.e. retrieving data from a server API call), you may get back differing JSON, in that case you can specify which *key* to display in the selector using the *displayKey* in the config, for example if we wish to display the *text* fields in the corresponding JSON from the following data set:
 
 ```js
 var data = {
@@ -253,7 +267,7 @@ var config = {
 
 
 ```
-Which produces: 
+Which produces:
 
 ![Measurements](examples/images/quantity_complex.png)
 
@@ -264,7 +278,7 @@ And the corresponding results, you can use the index to retrieve any other value
 ```js
 window.SelectorCordovaPlugin.showSelector(config, function(result) {
     console.log("result: " + JSON.stringify(result) );
-    console.log('User chose number: ' + result[0].text + ' at array index: ' + result[0].index + 
+    console.log('User chose number: ' + result[0].text + ' at array index: ' + result[0].index +
                 ' which has value: ' + data.numbers[result[0].index].value + ' and id: ' + data.numbers[result[0].index].id);
     console.log('User chose measurement: ' + result[1].text + ' at array index: ' + result[1].index +
                 ' which has value: ' + data.measurements[result[1].index].value + ' and id: ' + data.measurements[result[1].index].id);
