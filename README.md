@@ -1,6 +1,13 @@
+
+# Cordova wheel selector plugin
+Native wheel selector for Cordova (Android/iOS).
+
+Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky javascript used.  Can send in as many *data sets* as needed, the UI will *grow* or *shrink* accordingly (see examples for info).
+
+
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [cordova-wheel-selector-plugin](#cordova-wheel-selector-plugin)
+- [Cordova wheel selector plugin](#cordova-wheel-selector-plugin)
 - [Installation](#installation)
 - [Usage](#usage)
 	- [The options that can be set](#the-options-that-can-be-set)
@@ -18,10 +25,6 @@
 <!-- /TOC -->
 
 
-# cordova-wheel-selector-plugin
-Native wheel selector for Cordova (Android/iOS).
-
-Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky javascript used.  Can send in as many *data sets* as needed, the UI will *grow* or *shrink* accordingly (see examples for info).
 
 # Installation
 
