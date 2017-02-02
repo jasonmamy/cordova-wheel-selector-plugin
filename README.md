@@ -138,7 +138,9 @@ var config = {
 
 ```
 Produces:
-<img src="examples/images/single_items.png" alt="single items" width="400" height="300">
+
+
+<img src="examples/images/fruit.png" alt="fruits" width="400" height="300">
 
 
 ## 2 items white theme
@@ -158,7 +160,8 @@ var config = {
 Produces:
 
 
-<img src="examples/images/fruit.png" alt="fruits" width="400" height="300">
+<img src="examples/images/single_items.png" alt="single items" width="400" height="300">
+
 
 ### Results:
 ```js
