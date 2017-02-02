@@ -1,12 +1,12 @@
 {
-  "name": "cordova-plugin-template",
+  "name": "cordova-wheel-selector-plugin",
   "version": "1.0.0",
   "cordova": {
-    "id": "cordova-plugin-template",
+    "id": "cordova-wheel-selector-plugin",
     "platforms": [
       "android",
       "ios",
     ]
   },
-  "description": "A starting point for a Cordova Plugin"
+  "description": "A wheel selector plugin for Cordova or Ionic projects"
 }
