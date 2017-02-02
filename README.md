@@ -4,7 +4,6 @@ Native wheel selector for Cordova (Android/iOS).
 
 Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky javascript used.  Can send in as many *data sets* as needed, the UI will *grow* or *shrink* accordingly (see examples for info).
 
-
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Cordova wheel selector plugin](#cordova-wheel-selector-plugin)
@@ -20,10 +19,12 @@ Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky jav
 	- [2 items dark theme](#2-items-dark-theme)
 	- [Many items dark theme, with 'wheel wrapping'](#many-items-dark-theme-with-wheel-wrapping)
 	- [More complicated usage](#more-complicated-usage)
+- [Development](#development)
+	- [Android](#android)
+	- [IOS](#ios)
 - [TODO](#todo)
 
 <!-- /TOC -->
-
 
 
 # Installation
@@ -305,16 +306,48 @@ Note, in the `result` return value, there is `index` which is the index in the o
 
 
 
+# Development
+
+Kinda a pain to develop these plugins (i.e. haven't figured a good way to unit test).
+
+Clone this project, say you cloned into `/home/myuser/git/cordova-wheel-selector-plugin`
+
+Install Ionic framework (could create Cordova project as well), and create a project:
+
+`ionic start myapp`
+
+`cd myapp`
+
+## Android
+
+Install platforms:
+
+`ionic platform add android`
+
+Install the cordova-wheel-selector-plugin:
+
+`cordova plugin add --link /home/myuser/git/cordova-wheel-selector-plugin`
+
+(this createss symlinks to the plugin, in the ionic project directory)
+
+Install android studio, and open it, then create a blank project, then:
+
+`File->new->import project` and browse to the `platforms/android` directory and import from that directory (there's a gradle script in there).
+
+This should allow for IDE auto-completion, etc.  
+
+If you modify any file other than the `.java` file you need to uninstall the plugin and re-install it:
+
+`cordova plugin rm cordova-wheel-selector-plugin`
+
+Then
+
+`cordova plugin add --link /home/myuser/git/cordova-wheel-selector-plugin`
 
 
+## IOS
 
-
-
-
-
-
-
-
+TBD
 
 
 
