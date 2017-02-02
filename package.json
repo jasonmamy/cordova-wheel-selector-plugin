@@ -5,7 +5,7 @@
     "id": "cordova-wheel-selector-plugin",
     "platforms": [
       "android",
-      "ios",
+      "ios"
     ]
   },
   "description": "A wheel selector plugin for Cordova or Ionic projects"

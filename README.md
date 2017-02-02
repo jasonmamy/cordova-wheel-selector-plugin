@@ -29,8 +29,17 @@ Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky jav
 
 # Installation
 
-TBD: push to npm registry or something so can have a nicer install
+Installation via command line:
 
+`cordova plugin add cordova-wheel-selector-plugin`
+
+
+Notes:
+To publish to npm
+
+`npm adduser`
+<Answer prompts for username, password, email if not already setup>
+`npm publish`
 
 # Usage
 
