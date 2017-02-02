@@ -12,7 +12,7 @@ TBD: push to npm registry or something so can have a nicer install
 
 ## The options that can be set
 
-```
+```js
 var config = {
     title: "The title",
     items:[
@@ -97,7 +97,7 @@ window.SelectorCordovaPlugin.showSelector(config, function(result) {
 ## Single items, white theme
 Using config:
 
-```
+```js
 var config = {
     title: "How Many Fruit?",
     items:[
@@ -119,7 +119,7 @@ Results:
 ## 2 items white theme
 Using config:
 
-```
+```js
 var config = {
     title: "Select a quantity",
     items:[
@@ -136,7 +136,7 @@ Produces:
 
 
 ### Results:
-```
+```js
 window.SelectorCordovaPlugin.showSelector(config, function(result) {
     console.log("result: " + JSON.stringify(result) );
     console.log('User chose number: ' + result[0].description + ' at array index: ' + result[0].index);
@@ -160,7 +160,7 @@ window.SelectorCordovaPlugin.showSelector(config, function(result) {
 ## 2 items dark theme
 Using config:
 
-```
+```js
 var config = {
     title: "Select a quantity",
     items:[
@@ -182,7 +182,7 @@ Produces:
 ## Many items dark theme, with 'wheel wrapping'
 Using config:
 
-```
+```js
 var config = {
     title: "Select something",
     items:[
@@ -206,7 +206,7 @@ Produces:
 
 In some cases (i.e. retrieving data from a server API call), you may get back differing JSON, in that case you can specify which *key* to display in the selector using the *displayKey* in the config, for example if we wish to display the *text* fields in the corresponding JSON from the following data set: 
 
-```
+```js
 var data = {
     numbers:[
         //intentional blanks - show up in ui as blanks
@@ -238,7 +238,7 @@ var data = {
 
 We would use the config, specifying the `displayKey` field to use `text` (if no `displayKey` is defined, the default is `description`):
 
-```
+```js
 var config = {
     title: "Select quantity",
     items:[
@@ -261,7 +261,7 @@ Which produces:
 
 And the corresponding results, you can use the index to retrieve any other values in the original JSON:
 
-```
+```js
 window.SelectorCordovaPlugin.showSelector(config, function(result) {
     console.log("result: " + JSON.stringify(result) );
     console.log('User chose number: ' + result[0].text + ' at array index: ' + result[0].index + 
@@ -276,7 +276,7 @@ window.SelectorCordovaPlugin.showSelector(config, function(result) {
 
 Which outputs:
 
-```
+```js
 "result: [{"index":4,"text":"4"},{"index":4,"text":"Quart(s)"}]"
 "User chose number: 4 at array index: 4 which has value: four and id: id4"
 "User chose measurement: Quart(s) at array index: 4 which has value: 1quart and id: id-54"
