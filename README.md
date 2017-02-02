@@ -138,9 +138,7 @@ var config = {
 
 ```
 Produces:
-
-![Fruits](examples/images/single_items.png)
-
+<img src="examples/images/single_items.png" alt="single items" width="400" height="300">
 
 
 ## 2 items white theme
@@ -159,8 +157,8 @@ var config = {
 ```
 Produces:
 
-![Fruits](examples/images/fruit.png)
 
+<img src="examples/images/fruit.png" alt="fruits" width="400" height="300">
 
 ### Results:
 ```js
@@ -202,8 +200,7 @@ var config = {
 ```
 Produces:
 
-![Measurements](examples/images/quantity_dark_theme.png)
-
+<img src="examples/images/quantity_dark_theme.png" alt="measurements" width="400" height="300">
 
 
 ## Many items dark theme, with 'wheel wrapping'
@@ -226,8 +223,8 @@ var config = {
 ```
 Produces:
 
-![Measurements](examples/images/multiple_items.png)
 
+<img src="examples/images/multiple_items.png" alt="measurements" width="400" height="300">
 
 ## More complicated usage
 
@@ -282,8 +279,8 @@ var config = {
 ```
 Which produces:
 
-![Measurements](examples/images/quantity_complex.png)
 
+<img src="examples/images/quantity_complex.png" alt="measurements" width="400" height="300">
 
 
 And the corresponding results, you can use the index to retrieve any other values in the original JSON:
