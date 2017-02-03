@@ -356,6 +356,8 @@ TBD
 # Notes:
 To publish to npm
 
+increment version in `./package.json`
+
 `npm adduser`
 <Answer prompts for username, password, email if not already setup>
 `npm publish`
