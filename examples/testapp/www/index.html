@@ -58,7 +58,7 @@
 
         <div class="item">
             <label "item item-input item-select item-stable">
-                <select class="item item-input item-select item-stable" ng-model="wrap" ng-change="selectWrapWheelText(wrap)">
+                <select animate="slide-in-up" class="item item-input item-select item-stable" ng-model="wrap" ng-change="selectWrapWheelText(wrap)">
                     <option value="" selected>No wheel wrap</option>
                     <option value="true">Do Wheel Wrap</option>
                 </select>
@@ -66,6 +66,7 @@
         </div>
         <div class="item"><button class="button button-calm" ng-click="selectSomeFruit()">Select fruit</button></div>
         <div class="item"><button class="button button-calm" ng-click="selectNumber()">Select number</button></div>
+        <div class="item"><button class="button button-calm" ng-click="selectQuantityNormal()">Select fruit quantity</button></div>
         <div class="item"><button class="button button-calm" ng-click="selectQuantity()">Select fruit quantity from planet</button></div>
         <div class="item"><button class="button button-calm" ng-click="selectQuantityComplex()">Select Quantity</button></div>
     </div>

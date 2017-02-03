@@ -36,10 +36,20 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
     public static final String SPACE = " ";
     public static final int WIDTH = 50;
     public static final int HEIGHT = 50;
+
     public static boolean WHEEL_WRAP;
     public static final String LIGHT_THEME = "light";
     public static final String DARK_THEME = "dark";
     public static SelectorTheme SELECTOR_THEME = null;
+
+    private static final String INDEX_KEY = "index";
+    private static final String DISPLAY_ITEMS_KEY = "displayItems";
+    private static final String DISPLAY_KEY = "displayKey";
+    private static final String TITLE_KEY = "title";
+    private static final String POSITIVE_BUTTON_TEXT_KEY = "positiveButtonText";
+    private static final String NEGATIVE_BUTTON_TEXT_KEY = "negativeButtonText";
+    private static final String WRAP_WHEEL_TEXT_KEY = "wrapWheelText";
+    private static final String THEME_KEY = "theme";
 
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
@@ -53,18 +63,15 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
             final JSONObject options = args.getJSONObject(0);
 
             String config = args.getString(0);
-            final JSONArray items = options.getJSONArray("displayItems");
-            final String displayKey = options.getString("displayKey");
-            final String title = options.getString("title");
-            final String positiveButton = options.getString("positiveButtonText");
-            final String negativeButton = options.getString("negativeButtonText");
-            final String wrapSelectorText = options.getString("wrapWheelText");
-            final String theme = options.getString("theme");
+            final JSONArray items = options.getJSONArray(DISPLAY_ITEMS_KEY);
+            final String displayKey = options.getString(DISPLAY_KEY);
+            final String title = options.getString(TITLE_KEY);
+            final String positiveButton = options.getString(POSITIVE_BUTTON_TEXT_KEY);
+            final String negativeButton = options.getString(NEGATIVE_BUTTON_TEXT_KEY);
+            final String wrapSelectorText = options.getString(WRAP_WHEEL_TEXT_KEY);
+            final String theme = options.getString(THEME_KEY);
 
             WHEEL_WRAP = Boolean.parseBoolean(wrapSelectorText);
-
-            Log.d(TAG, "Wheel wrap: " + wrapSelectorText + " set to: " + WHEEL_WRAP);
-
             SELECTOR_THEME = new SelectorTheme(theme);
 
             Log.d(TAG, "Config options: " + config);
@@ -116,7 +123,7 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
                                                     jsonValue = new JSONObject();
 
                                                     value = asFinal.get(i).getDataToShow(asFinal.get(i).getNumberPicker().getValue());
-                                                    jsonValue.put("index", asFinal.get(i).getNumberPicker().getValue());
+                                                    jsonValue.put(INDEX_KEY, asFinal.get(i).getNumberPicker().getValue());
 
                                                     if (value != null && value.equalsIgnoreCase(SPACE))
                                                         jsonValue.put(displayKey, BLANK_STRING);
@@ -139,7 +146,7 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,
                                                             int id) {
-                                            Log.d(TAG, "canceled");
+                                            Log.d(TAG, "User canceled");
                                              callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR));
                                             dialog.cancel();
                                         }
@@ -184,6 +191,7 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
     }
 
     public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color) {
+
         final int count = numberPicker.getChildCount();
         for (int i = 0; i < count; i++) {
             View child = numberPicker.getChildAt(i);
@@ -193,8 +201,13 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
                             .getDeclaredField("mSelectorWheelPaint");
                     selectorWheelPaintField.setAccessible(true);
                     ((Paint) selectorWheelPaintField.get(numberPicker)).setColor(color);
+
+                    //paint.TextSize =  TypedValue.ApplyDimension(complexUnitType, textSize, numberPicker.Resources.DisplayMetrics);
+
+                    //will bold the selection
+//                    ((Paint) selectorWheelPaintField.get(numberPicker)).setTypeface(Typeface.DEFAULT_BOLD);
+
                     ((EditText) child).setTextColor(color);
-//              ((EditText)child).setTextSize(20);
                     numberPicker.invalidate();
                     return true;
                 } catch (NoSuchFieldException e) {
@@ -208,7 +221,6 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
         }
         return false;
     }
-
 }
 
 
@@ -226,7 +238,11 @@ class PickerView {
 
     public NumberPicker getNumberPicker() {
 
+        //ContextThemeWrapper cw = new ContextThemeWrapper(activity,  android.R.style.Holo_ButtonBar_AlertDialog);
+//        ContextThemeWrapper cw = new ContextThemeWrapper(activity,  android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+
         if (picker == null) {
+            //picker = new NumberPicker(cw);
             picker = new NumberPicker(activity);
             picker.setMinValue(0);
             picker.setMaxValue(dataToShow.length - 1);
@@ -275,11 +291,10 @@ class SelectorTheme {
 
     public int getAlertBuilderTheme() {
         if (themeColors.equalsIgnoreCase(SelectorCordovaPlugin.LIGHT_THEME)) {
-            return AlertDialog.THEME_DEVICE_DEFAULT_LIGHT;
+            return android.R.style.Theme_DeviceDefault_Light_Dialog_Alert;
         }
 
-        return AlertDialog.THEME_DEVICE_DEFAULT_DARK;
-
+        return android.R.style.Theme_DeviceDefault_Dialog_Alert;
     }
 }
 

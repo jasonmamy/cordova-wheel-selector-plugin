@@ -34,12 +34,6 @@ Installation via command line:
 `cordova plugin add cordova-wheel-selector-plugin`
 
 
-Notes:
-To publish to npm
-
-`npm adduser`
-<Answer prompts for username, password, email if not already setup>
-`npm publish`
 
 # Usage
 
@@ -341,7 +335,7 @@ Install the cordova-wheel-selector-plugin:
 
 Install android studio, and open it, then create a blank project, then:
 
-`File->new->import project` and browse to the `platforms/android` directory and import from that directory (there's a gradle script in there).
+`File->new->import project` and browse to the `examples/testapp/platforms/android` directory and import from that directory (there's a gradle script in there).
 
 This should allow for IDE auto-completion, etc.  
 
@@ -359,7 +353,12 @@ Then
 TBD
 
 
+# Notes:
+To publish to npm
 
+`npm adduser`
+<Answer prompts for username, password, email if not already setup>
+`npm publish`
 
 # TODO
 * implement ios portion

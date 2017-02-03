@@ -159,6 +159,34 @@ angular.module('starter', ['ionic'])
       }
     }
 
+    $scope.selectQuantityNormal = function() {
+
+      if (window.SelectorCordovaPlugin) {
+        var configSimple3 = {
+          title: "How Many?",
+          items: [
+            [testdata.simpledata.numbers],
+            [testdata.simpledata.measurements],
+            [testdata.simpledata.fruits]
+          ],
+          positiveButtonText: "Done",
+          negativeButtonText: "Cancel",
+          theme: themeColor,
+          wrapWheelText: wrapWheelText
+        }
+
+        window.SelectorCordovaPlugin.showSelector(configSimple3, function(result) {
+          console.log("result: " + JSON.stringify(result));
+          var alertPopup = $ionicPopup.alert({
+            title: 'You Selected',
+            template: '<center>' + result[0].description + ' ' + result[1].description + ' of ' + result[2].description + '</center>' 
+          });
+        });
+      } else {
+        console.log('no plugin');
+        alert('cordova-wheel-selector-plugin not available in browser, install and run on device!');
+      }
+    }
 
     $scope.selectQuantity = function() {
 
