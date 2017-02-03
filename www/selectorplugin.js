@@ -64,6 +64,7 @@ var SelectorCordovaPlugin = {
 
   showSelector: function(options, cb) {
 
+      console.log('**as json: ' + JSON.stringify(options));
       options || (options = {});
       var scope = options.scope || null;
 
@@ -85,8 +86,7 @@ var SelectorCordovaPlugin = {
           displayKey: options.displayKey || 'description',
           items: options.items || {},
           displayItems: displayList,
-          style: options.style || 'default',
-          theme: options.theme || 'white',
+          theme: options.theme || 'light',
           wrapWheelText: options.wrapWheelText || false,
           positiveButtonText: options.positiveButtonText || 'Ok',
           negativeButtonText: options.negativeButtonText || 'Cancel'
@@ -100,59 +100,14 @@ var SelectorCordovaPlugin = {
           }
       }
 
-
-
-
-
-
       var _callback = function() {
           if(typeof cb == 'function') {
-//            console.log(PLUGIN_NAME + ' here...');
-
-//            for(i in arguments) {
-//
-//                console.log(PLUGIN_NAME + ' some val ' i + ': '+ arguments[i]);
-//            }
-
-//            arguments = "this is a test";
-//            arguments = JSON.stringify(arguments);
-
-//            var indexes = arguments[1];
-//            for(i in indexes) {
-//
-//                console.log(PLUGIN_NAME + ' have: ' + indexes[i] );
-//            }
-//
-//            if(arguments[0] == 0) {
-//
-//                console.log(PLUGIN_NAME + ' Must be good');
-//
-//                console.log(PLUGIN_NAME + ' *could return: ' + JSON.stringify(arguments[1]));
-//            }
-
-//            console.log(PLUGIN_NAME + ' *could return: ' + JSON.stringify(arguments[1]));
-//            console.log(PLUGIN_NAME + ' arg0: ' + arguments[0].length);
-//            console.log(PLUGIN_NAME + ' arg0 val: ' + arguments[0][0]);
-              console.log(PLUGIN_NAME + ' *callback return: ' + JSON.stringify(arguments));
-
-              var blah = arguments;
-
-//            var blah = { 0: "test", 1: "stuff"
-//            };
-//            cb.apply(scope, arguments);
-              cb.apply(scope, blah);
+              cb.apply(scope, arguments);
           }
       };
 
-
     exec(_callback, null, PLUGIN_NAME, 'showSelector', [config]);
-//  exec(cb, null, PLUGIN_NAME, 'getDate', []);
-
   }
-
-
-
-
 };
 
 module.exports = SelectorCordovaPlugin;

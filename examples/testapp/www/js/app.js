@@ -78,25 +78,51 @@ angular.module('starter', ['ionic'])
     }
  })
 .controller('main', function ($scope, $ionicModal, $ionicPopup, testdata) { 
+    var themeColor = 'light';
+    var wrapWheelText = false;
+
+    $scope.selectTheme = function(userSelected) {
+
+        if(userSelected.length == 0) {
+            themeColor = 'light';
+        }else{
+            themeColor = userSelected;
+        }
+    }
+
+
+    $scope.selectWrapWheelText = function(toWrap) {
+
+        if(toWrap.length == 0) {
+            wrapWheelText = false;
+        }else{
+            wrapWheelText = true;
+        }
+        console.log('wrap is: ' + wrapWheelText);
+    }
 
     $scope.selectSomeFruit = function() {
 
+      console.log('theme: ' + themeColor);
+
       if (window.SelectorCordovaPlugin) {
-        var configSimple = {
+        var configSimple1 = {
           title: "How Many Fruit?",
           items: [
             [testdata.simpledata.numbers],
             [testdata.simpledata.fruits]
           ],
-          positiveButtonText: "Done",
-          negativeButtonText: "Cancel"
+          positiveButtonText: "Ok",
+          negativeButtonText: "Cancel",
+          theme: themeColor,
+          wrapWheelText: wrapWheelText
         }
 
-        window.SelectorCordovaPlugin.showSelector(configSimple, function(result) {
+        window.SelectorCordovaPlugin.showSelector(configSimple1, function(result) {
           console.log("result: " + JSON.stringify(result));
           var alertPopup = $ionicPopup.alert({
             title: 'You Selected',
-            template: result[0].description + ' ' + result[1].description + '(s)'
+            template: '<center>' + result[0].description + ' ' + result[1].description + '(s)' + '</center>'
           });
         });
       } else {
@@ -109,20 +135,22 @@ angular.module('starter', ['ionic'])
     $scope.selectNumber = function() {
 
       if (window.SelectorCordovaPlugin) {
-        var configSimple = {
+        var configSimple2 = {
           title: "How Many?",
           items: [
             [testdata.simpledata.numbers]
           ],
           positiveButtonText: "Ok",
-          negativeButtonText: "No way"
+          negativeButtonText: "No way",
+          theme: themeColor,
+          wrapWheelText: wrapWheelText
         }
 
-        window.SelectorCordovaPlugin.showSelector(configSimple, function(result) {
+        window.SelectorCordovaPlugin.showSelector(configSimple2, function(result) {
           console.log("result: " + JSON.stringify(result));
           var alertPopup = $ionicPopup.alert({
             title: 'You Selected',
-            template: result[0].description
+            template: '<center>' + result[0].description + '</center>'
           });
         });
       } else {
@@ -135,7 +163,7 @@ angular.module('starter', ['ionic'])
     $scope.selectQuantity = function() {
 
       if (window.SelectorCordovaPlugin) {
-        var configSimple = {
+        var configSimple3 = {
           title: "How Many?",
           items: [
             [testdata.simpledata.numbers],
@@ -145,15 +173,15 @@ angular.module('starter', ['ionic'])
           ],
           positiveButtonText: "Done",
           negativeButtonText: "Cancel",
-          theme: "dark",
-          wrapWheelText: true
+          theme: themeColor,
+          wrapWheelText: wrapWheelText
         }
 
-        window.SelectorCordovaPlugin.showSelector(configSimple, function(result) {
+        window.SelectorCordovaPlugin.showSelector(configSimple3, function(result) {
           console.log("result: " + JSON.stringify(result));
           var alertPopup = $ionicPopup.alert({
             title: 'You Selected',
-            template: result[0].description + ' ' + result[1].description + ' of ' + result[2].description + ' from ' + result[3].description 
+            template: '<center>' + result[0].description + ' ' + result[1].description + ' of ' + result[2].description + ' from ' + result[3].description + '</center>' 
           });
         });
       } else {
@@ -166,7 +194,7 @@ angular.module('starter', ['ionic'])
     $scope.selectQuantityComplex = function() {
 
       if (window.SelectorCordovaPlugin) {
-        var configSimple = {
+        var configSimple4 = {
           title: "How Many?",
           items: [
             [testdata.complex.numbers],
@@ -174,14 +202,16 @@ angular.module('starter', ['ionic'])
           ],
           positiveButtonText: "Yes",
           negativeButtonText: "No",
-          displayKey: "text"
+          displayKey: "text",
+          theme: themeColor,
+          wrapWheelText: wrapWheelText
         }
 
-        window.SelectorCordovaPlugin.showSelector(configSimple, function(result) {
+        window.SelectorCordovaPlugin.showSelector(configSimple4, function(result) {
           console.log("result: " + JSON.stringify(result));
           var alertPopup = $ionicPopup.alert({
             title: 'You Selected',
-            template:  testdata.complex.numbers[result[0].index].value + ' ' + testdata.complex.measurements[result[1].index].value 
+            template: '<center>' + testdata.complex.numbers[result[0].index].value + ' ' + testdata.complex.measurements[result[1].index].value + '</center>'
           });
         });
       } else {
@@ -189,5 +219,4 @@ angular.module('starter', ['ionic'])
         alert('cordova-wheel-selector-plugin not available in browser, install and run on device!');
       }
     }
-
 })

@@ -45,12 +45,30 @@
       </ion-header-bar>
       <ion-content>
 
-      <div class="list">
-   <div class="item"><button class="button button-calm" ng-click="selectSomeFruit()">Select fruit</button></div>
-   <div class="item"><button class="button button-calm" ng-click="selectNumber()">Select number</button></div>
-   <div class="item"><button class="button button-calm" ng-click="selectQuantity()">Select fruit quantity from planet</button></div>
-   <div class="item"><button class="button button-calm" ng-click="selectQuantityComplex()">Select Quantity</button></div>
-</div>
+    <div class="list">
+
+        <div class="item">
+            <label "item item-input item-select item-stable">
+                <select class="item item-input item-select item-stable" ng-model="selected" ng-change="selectTheme(selected)">
+                    <option value="" selected>Light Theme</option>
+                    <option value="dark">Dark Theme</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="item">
+            <label "item item-input item-select item-stable">
+                <select class="item item-input item-select item-stable" ng-model="wrap" ng-change="selectWrapWheelText(wrap)">
+                    <option value="" selected>No wheel wrap</option>
+                    <option value="true">Do Wheel Wrap</option>
+                </select>
+            </label>
+        </div>
+        <div class="item"><button class="button button-calm" ng-click="selectSomeFruit()">Select fruit</button></div>
+        <div class="item"><button class="button button-calm" ng-click="selectNumber()">Select number</button></div>
+        <div class="item"><button class="button button-calm" ng-click="selectQuantity()">Select fruit quantity from planet</button></div>
+        <div class="item"><button class="button button-calm" ng-click="selectQuantityComplex()">Select Quantity</button></div>
+    </div>
 
       </ion-content>
     </ion-pane>

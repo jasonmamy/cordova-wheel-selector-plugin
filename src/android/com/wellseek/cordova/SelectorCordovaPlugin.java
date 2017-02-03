@@ -37,7 +37,7 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
     public static final int WIDTH = 50;
     public static final int HEIGHT = 50;
     public static boolean WHEEL_WRAP;
-    public static final String LIGHT_THEME = "white";
+    public static final String LIGHT_THEME = "light";
     public static final String DARK_THEME = "dark";
     public static SelectorTheme SELECTOR_THEME = null;
 
@@ -47,30 +47,9 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
     }
 
     public boolean execute(final String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-        Log.d(TAG, "action: " + action);
         final CordovaInterface cordova = this.cordova;
 
-
-        if (action.equals("echo")) {
-
-//      Log.d(TAG, "In the execute of the new plugin");cordova.getActivity()
-            String phrase = args.getString(0);
-            // Echo back the first argument
-            Log.d(TAG, "Phrase2 is: " + phrase);
-        } else if (action.equals("getDate")) {
-
-            String sentIn = args.getString(0);
-            Log.d(TAG, "Sent in this mess: " + sentIn);
-            JSONArray array = new JSONArray();
-            array.put("one");
-            array.put("two");
-            // An example of returning data back to the web layer
-//      final PluginResult result = new PluginResult(PluginResult.Status.OK, (new Date()).toString());
-            final PluginResult result = new PluginResult(PluginResult.Status.OK, (array));
-
-
-            callbackContext.sendPluginResult(result);
-        } else if (action.equals("showSelector")) {
+        if (action.equals("showSelector")) {
             final JSONObject options = args.getJSONObject(0);
 
             String config = args.getString(0);
@@ -82,11 +61,11 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
             final String wrapSelectorText = options.getString("wrapWheelText");
             final String theme = options.getString("theme");
 
-            if (wrapSelectorText.equalsIgnoreCase("true"))
-                WHEEL_WRAP = true;
+            WHEEL_WRAP = Boolean.parseBoolean(wrapSelectorText);
+
+            Log.d(TAG, "Wheel wrap: " + wrapSelectorText + " set to: " + WHEEL_WRAP);
 
             SELECTOR_THEME = new SelectorTheme(theme);
-
 
             Log.d(TAG, "Config options: " + config);
 
@@ -161,6 +140,7 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
                                         public void onClick(DialogInterface dialog,
                                                             int id) {
                                             Log.d(TAG, "canceled");
+                                             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR));
                                             dialog.cancel();
                                         }
                                     });
@@ -176,6 +156,7 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
 
             this.cordova.getActivity().runOnUiThread(runnable);
        }
+
         return true;
     }
 
