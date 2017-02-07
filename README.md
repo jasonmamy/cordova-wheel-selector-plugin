@@ -60,6 +60,12 @@ var config = {
 ```
 
 # Screenshots and Examples
+
+## Android
+
+
+<img src="examples/images/android-video.gif" alt="android video" width="600" height="400">
+
 ## Sample Data
 
 Create your data (or get it from a server API call):
