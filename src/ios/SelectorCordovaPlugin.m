@@ -1,8 +1,8 @@
-#import "MyCordovaPlugin.h"
+#import "SelectorCordovaPlugin.h"
 
 #import <Cordova/CDVAvailability.h>
 
-@implementation MyCordovaPlugin
+@implementation SelectorCordovaPlugin
 
 - (void)pluginInitialize {
 }
