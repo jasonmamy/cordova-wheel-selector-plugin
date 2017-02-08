@@ -53,7 +53,7 @@
             </feature>
         </config-file>
 
-        <header-file src="src/ios/MyCordovaPlugin.h" />
-        <source-file src="src/ios/MyCordovaPlugin.m" />
+        <header-file src="src/ios/SelectorCordovaPlugin.h" />
+        <source-file src="src/ios/SelectorCordovaPlugin.m" />
     </platform>
 </plugin>
