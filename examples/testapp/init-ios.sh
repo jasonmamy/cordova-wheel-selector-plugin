@@ -6,6 +6,6 @@ ionic resources ios
 ionic platform add ios
 ionic resources
 
-echo 'Can now type: ionic serve...'
+echo 'Can now install and run the app...'
 
 

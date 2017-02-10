@@ -53,13 +53,14 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
 
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-
     }
 
     public boolean execute(final String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-        final CordovaInterface cordova = this.cordova;
+
+        final CordovaInterface cordova = this.cordova; 
 
         if (action.equals("showSelector")) {
+
             final JSONObject options = args.getJSONObject(0);
 
             String config = args.getString(0);
@@ -162,7 +163,7 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
             };
 
             this.cordova.getActivity().runOnUiThread(runnable);
-       }
+        }
 
         return true;
     }

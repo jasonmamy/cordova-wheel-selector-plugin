@@ -3,7 +3,7 @@ var exec = require('cordova/exec');
 var PLUGIN_NAME = 'SelectorCordovaPlugin';
 
 var SelectorCordovaPlugin = {
-  showSelector: function(options, cb) {
+  showSelector: function(options, cb, error_callback) {
       options || (options = {});
       var scope = options.scope || null;
 
@@ -45,7 +45,13 @@ var SelectorCordovaPlugin = {
           }
       };
 
-    exec(_callback, null, PLUGIN_NAME, 'showSelector', [config]);
+      var _error_callback = function() {
+          if(typeof error_callback == 'function') { 
+              error_callback.apply(scope, arguments);
+      }
+    };
+
+    exec(_callback, _error_callback, PLUGIN_NAME, 'showSelector', [config]);
   }
 };
 

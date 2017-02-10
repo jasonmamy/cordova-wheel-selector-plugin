@@ -6,6 +6,6 @@ ionic resources android
 ionic platform add android
 ionic resources
 
-echo 'Can now type: ionic serve...'
+echo 'Can now install and run the app...'
 
 
