@@ -61,4 +61,5 @@
     <icon src="resources/ios/icon/icon-small@3x.png" width="87" height="87"/>
   </platform>
   <icon src="resources/android/icon/drawable-xhdpi-icon.png"/>
+  <allow-navigation href="http://192.168.1.4:8100"/>
 </widget>

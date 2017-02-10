@@ -14,40 +14,61 @@
 
 @implementation SelectorCordovaPlugin
 
-
-
-
 @synthesize callbackId = _callbackId;
 @synthesize pickerView = _pickerView;
 @synthesize popoverController = _popoverController;
 @synthesize modalView = _modalView;
 @synthesize items = _items;
-
+@synthesize displayKey = _displayKey;
+@synthesize itemsCount = _itemsCount;
 
 - (int)getRowWithValue:(NSString * )name {
+
     for(int i = 0; i < [self.items count]; i++) {
         NSDictionary *item = [self.items objectAtIndex:i];
-        if([name isEqualToString:[item objectForKey:@"value"]]) {
+        if([name isEqualToString:[item objectForKey:self.displayKey]]) {
             return i;
         }
     }
     return -1;
+
 }
 
 - (void)showSelector:(CDVInvokedUrlCommand*)command {
     
     self.callbackId = command.callbackId;
-    NSDictionary *options = [command.arguments objectAtIndex:0];
+
+    NSString *temp = @"In showSelector";
+    printf("%s\n", [temp UTF8String]);
     
+    NSDictionary *options = [command.arguments objectAtIndex:0];
+
     // Compiling options with defaults
     NSString *title = [options objectForKey:@"title"] ?: @" ";
+    NSLog(@"title: %@", title);
+
     NSString *doneButtonLabel = [options objectForKey:@"positiveButtonText"] ?: @"Done";
     NSString *cancelButtonLabel = [options objectForKey:@"negativeButtonText"] ?: @"Cancel";
+    self.displayKey = [options objectForKey:@"displayKey"] ?: @"description";
+    
+    NSLog(@"doneButtonLabel: %@", doneButtonLabel);
+    NSLog(@"cancelButtonLabel: %@", cancelButtonLabel);
+    NSLog(@"displayKey: %@", self.displayKey);
     
     // Hold items in an instance variable
     self.items = [options objectForKey:@"displayItems"];
     
-    // Initialize the toolbar with Cancel and Done buttons and title
+    self.itemsCount = self.items.count;
+    
+    NSLog(@"Number of items in list: %zd", self.itemsCount);
+    
+    //TBD: this shouldn't be hard-coded to the 1st item, should be dynamic
+    //and show as many selectors as there are items
+    self.items = self.items[0];
+    
+    NSLog(@"displayItems: %@", self.items);
+   
+    //Cancel and Done buttons and title
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame: CGRectMake(0, 0, self.viewSize.width, 44)];
     toolbar.barStyle = (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? UIBarStyleDefault : UIBarStyleBlackTranslucent;
     NSMutableArray *buttons =[[NSMutableArray alloc] init];
@@ -78,13 +99,14 @@
     self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 40.0f, self.viewSize.width, 216)];
     self.pickerView.showsSelectionIndicator = YES;
     self.pickerView.delegate = self;
+   
     
-    // Define selected value
-    if([options objectForKey:@"selectedValue"]) {
+    //TBD: Define selected value
+    /*if([options objectForKey:@"selectedValue"]) {
         int i = [self getRowWithValue:[options objectForKey:@"selectedValue"]];
         if (i != -1) [self.pickerView selectRow:i inComponent:0 animated:NO];
-    }
-    
+    }*/
+
     // Initialize the View that should conain the toolbar and picker
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewSize.width, 260)];
     if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
@@ -119,7 +141,6 @@
                                              selector:@selector(didRotate:)
                                                  name:UIApplicationWillChangeStatusBarOrientationNotification
                                                object:nil];
-    
     CGRect viewFrame = CGRectMake(0, 0, self.viewSize.width, self.viewSize.height);
     [view setFrame: CGRectMake(0, viewFrame.size.height, viewFrame.size.width, 260)];
     
@@ -148,7 +169,7 @@
     // Create a generic content view controller
     UIViewController* popoverContent = [[UIViewController alloc] initWithNibName:nil bundle:nil];
     popoverContent.view = view;
-    
+
     // Resize the popover to the view's size
     popoverContent.preferredContentSize = view.frame.size;
     
@@ -261,16 +282,40 @@
     
     // Build returned result
     NSInteger selectedRow = [pickerView selectedRowInComponent:0];
-    NSString *selectedValue = [[self.items objectAtIndex:selectedRow] objectForKey:@"description"];
-     // NSString *selectedValue = [[self.items objectAtIndex:selectedRow] objectForKey:@"value"];
-    // Create Plugin Result
+    NSString *indexAsString = [NSString stringWithFormat: @"%ld", (long)selectedRow];
+
+    NSString *selectedValue = [self.items objectAtIndex:selectedRow];
+    NSLog(@"selected val: %@", selectedValue);
+    
+    //TBD: loop on how many self.items there are and add to this
+    NSDictionary *jsonDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    indexAsString, @"index",
+                                    selectedValue, self.displayKey, nil];
+
+    NSMutableArray * arr = [[NSMutableArray alloc] init];
+    
+    [arr addObject:jsonDictionary];
+
+    //TBD: take this out, it just fills up the array with TBD
+    //until can loop over UI picker elements
+    for (NSInteger i = 1; i < self.itemsCount; i++) {
+
+        NSDictionary *tmpDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        @"0", @"index",
+                                        @"TBD", self.displayKey, nil];
+        [arr addObject:tmpDictionary];
+    }
+
+        // Create Plugin Result
     CDVPluginResult* pluginResult;
+    
     if (buttonIndex == 0) {
         // Create ERROR result if cancel was clicked
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }else {
         // Create OK result otherwise
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:selectedValue];
+        //pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonString];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray : arr];
     }
     
     // Call appropriate javascript function
@@ -297,8 +342,17 @@
 
 // Tell the picker the title for a given component
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [[self.items objectAtIndex:row] objectForKey:@"description"];
-     //return [[self.items objectAtIndex:row] objectForKey:@"text"];
+    //NSString *tmp = @"getting title for row";
+    //printf("%s\n", [tmp UTF8String]);
+    //printf("%d\n", row);
+    
+    //NSString *tmpToReturn = @"tmpreturn";
+    //NSString *tmpRow = self.items[0][row];
+      NSString *tmpToReturn = self.items[row];
+      //    NSLog(@"tmpToReturn: %@", tmpToReturn);
+    //NSLog(@"tmp row: %@", self.items);
+    
+    return tmpToReturn;
 }
 
 // Tell the picker the width of each row for a given component
