@@ -73,13 +73,12 @@ var config = {
 
 ## Android
 
-
 <img src="examples/images/android-video.gif" alt="android video" width="600" height="400">
 
 ## iOS
 
 
-<img src="examples/images/mac-single-item-video.gif" alt="iOS video" width="768" height="1024">
+<img src="examples/images/mac-single-item-video.gif" alt="iOS video" width="600">
 
 
 ## Sample Data
