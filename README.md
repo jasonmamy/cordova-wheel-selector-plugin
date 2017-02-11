@@ -390,7 +390,7 @@ Can now open the project in Xcode:
 
 `cordova-wheel-selector-plugin/examples/testapp/platforms/ios/WheelSelector.xcodeproj`
 
-Then build/install as usual in Xcode.
+Then build/install/develop as usual in Xcode.
 
 
 
@@ -404,6 +404,12 @@ increment version in `./package.json`
 `npm publish`
 
 # TODO
-* implement ios portion
+* implement more of the ios portion
 * implement normal web browser portion so can run locally in desktop browser
 * add more error handling on weird cases
+
+# Credits
+
+A lot of this was inspired (and used, especially for the iOS) from this project:
+
+[https://github.com/roberthovhannisyan/PhoneGap-Plugin-ListPicker](https://github.com/roberthovhannisyan/PhoneGap-Plugin-ListPicker)
