@@ -1,4 +1,10 @@
 
+
+
+
+
+
+
 # Cordova wheel selector plugin
 Native wheel selector for Cordova (Android/iOS).
 
@@ -11,6 +17,8 @@ Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky jav
 - [Usage](#usage)
 	- [The options that can be set](#the-options-that-can-be-set)
 - [Screenshots and Examples](#screenshots-and-examples)
+	- [Android](#android)
+	- [iOS](#ios)
 	- [Sample Data](#sample-data)
 	- [Single items, white theme](#single-items-white-theme)
 	- [2 items white theme](#2-items-white-theme)
@@ -22,6 +30,7 @@ Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky jav
 - [Development](#development)
 	- [Android](#android)
 	- [IOS](#ios)
+- [Notes:](#notes)
 - [TODO](#todo)
 
 <!-- /TOC -->
@@ -33,6 +42,7 @@ Installation via command line:
 
 `cordova plugin add cordova-wheel-selector-plugin`
 
+Note: iOS currently only supports one wheel selector (in the works to support multiple)
 
 
 # Usage
@@ -65,6 +75,12 @@ var config = {
 
 
 <img src="examples/images/android-video.gif" alt="android video" width="600" height="400">
+
+## iOS
+
+
+<img src="examples/images/mac-single-item-video.gif" alt="iOS video" width="768" height="1024">
+
 
 ## Sample Data
 
@@ -356,7 +372,25 @@ Then
 
 ## IOS
 
-TBD
+Assumes you already have ionic, cordova, npm installed.
+
+cd to `cordova-wheel-selector-plugin/examples/testapp` dir, type:
+
+
+`./init-ios`
+
+which will build it.
+
+Link to local files for the plugin:
+
+`./link-local.sh`
+
+Can now open the project in Xcode:
+
+`cordova-wheel-selector-plugin/examples/testapp/platforms/ios/WheelSelector.xcodeproj`
+
+Then build/install as usual in Xcode.
+
 
 
 # Notes:
