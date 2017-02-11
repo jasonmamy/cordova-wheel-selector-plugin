@@ -145,7 +145,7 @@ var config = {
     title: "How Many Fruit?",
     items:[
         [data.numbers],
-        [data.fruit]
+        [data.fruit] //note: as of now iOS will ignore any arrays other than 1
     ],
     positiveButtonText: "Done",
     negativeButtonText: "Cancel"
@@ -183,6 +183,8 @@ Produces:
 window.SelectorCordovaPlugin.showSelector(config, function(result) {
     console.log("result: " + JSON.stringify(result) );
     console.log('User chose number: ' + result[0].description + ' at array index: ' + result[0].index);
+    
+    //note: as of now in iOS result[1] is ignored
     console.log('User chose fruit: ' + result[1].description + ' at array index: ' + result[1].index);
 }, function() {
     console.log('Canceled');
