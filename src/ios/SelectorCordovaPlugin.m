@@ -20,10 +20,9 @@
 @synthesize modalView = _modalView;
 @synthesize items = _items;
 @synthesize displayKey = _displayKey;
-@synthesize itemsCount = _itemsCount;
+@synthesize selectedValuesDict = _selectedValuesDict;
 
 - (int)getRowWithValue:(NSString * )name {
-
     for(int i = 0; i < [self.items count]; i++) {
         NSDictionary *item = [self.items objectAtIndex:i];
         if([name isEqualToString:[item objectForKey:self.displayKey]]) {
@@ -31,15 +30,11 @@
         }
     }
     return -1;
-
 }
 
 - (void)showSelector:(CDVInvokedUrlCommand*)command {
     
     self.callbackId = command.callbackId;
-
-    NSString *temp = @"In showSelector";
-    printf("%s\n", [temp UTF8String]);
     
     NSDictionary *options = [command.arguments objectAtIndex:0];
 
@@ -54,19 +49,15 @@
     NSLog(@"doneButtonLabel: %@", doneButtonLabel);
     NSLog(@"cancelButtonLabel: %@", cancelButtonLabel);
     NSLog(@"displayKey: %@", self.displayKey);
-    
-    // Hold items in an instance variable
+
     self.items = [options objectForKey:@"displayItems"];
+    self.selectedValuesDict=[[NSMutableDictionary alloc]init];
     
-    self.itemsCount = self.items.count;
-    
-    NSLog(@"Number of items in list: %zd", self.itemsCount);
-    
-    //TBD: this shouldn't be hard-coded to the 1st item, should be dynamic
-    //and show as many selectors as there are items
-    self.items = self.items[0];
-    
-    NSLog(@"displayItems: %@", self.items);
+    //set all selected values to 0th item
+    for(int i = 0; i < self.items.count; ++i){
+        NSString* key = [NSString stringWithFormat:@"%i", i];
+        [self.selectedValuesDict setValue:@(0) forKey:key];
+    }
    
     //Cancel and Done buttons and title
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame: CGRectMake(0, 0, self.viewSize.width, 44)];
@@ -99,7 +90,6 @@
     self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 40.0f, self.viewSize.width, 216)];
     self.pickerView.showsSelectionIndicator = YES;
     self.pickerView.delegate = self;
-   
     
     //TBD: Define selected value
     /*if([options objectForKey:@"selectedValue"]) {
@@ -186,7 +176,6 @@
                                             inView:self.webView.superview
                           permittedArrowDirections: 0
                                           animated:YES];
-    
 }
 
 //
@@ -279,34 +268,22 @@
 //
 
 - (void)sendResultsFromPickerView:(UIPickerView *)pickerView withButtonIndex:(NSInteger)buttonIndex {
-    
-    // Build returned result
-    NSInteger selectedRow = [pickerView selectedRowInComponent:0];
-    NSString *indexAsString = [NSString stringWithFormat: @"%ld", (long)selectedRow];
-
-    NSString *selectedValue = [self.items objectAtIndex:selectedRow];
-    NSLog(@"selected val: %@", selectedValue);
-    
-    //TBD: loop on how many self.items there are and add to this
-    NSDictionary *jsonDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    indexAsString, @"index",
-                                    selectedValue, self.displayKey, nil];
-
     NSMutableArray * arr = [[NSMutableArray alloc] init];
     
-    [arr addObject:jsonDictionary];
-
-    //TBD: take this out, it just fills up the array with TBD
-    //until can loop over UI picker elements
-    for (NSInteger i = 1; i < self.itemsCount; i++) {
-
+    NSArray *sortedKeys = [[self.selectedValuesDict allKeys] sortedArrayUsingSelector: @selector(compare:)];
+    
+      for (NSString *key in sortedKeys){
+        NSLog(@"key=%@ value=%@", key, [self.selectedValuesDict objectForKey:key]);
+        NSString * theKey = key;
+        NSInteger indexInDict = [theKey integerValue];
+        NSInteger index = [[self.selectedValuesDict objectForKey:key] integerValue];
+        NSString* valueFound = self.items[indexInDict][index];
         NSDictionary *tmpDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        @"0", @"index",
-                                        @"TBD", self.displayKey, nil];
+                                       theKey, @"index",
+                                       valueFound, self.displayKey, nil];
         [arr addObject:tmpDictionary];
     }
-
-        // Create Plugin Result
+    
     CDVPluginResult* pluginResult;
     
     if (buttonIndex == 0) {
@@ -314,10 +291,9 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }else {
         // Create OK result otherwise
-        //pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonString];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray : arr];
     }
-    
+
     // Call appropriate javascript function
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];;
 }
@@ -325,39 +301,55 @@
 //
 // Picker delegate
 //
+// Catpure the picker view selection
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    // This method is triggered whenever the user makes a change to the picker selection.
+    // The parameter named row and component represents what was selected.
+    NSString* key = [NSString stringWithFormat:@"%li", (long)component];
+    [self.selectedValuesDict setValue:@(row) forKey:key];
+ }
 
-// Listen picker selected row
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    UILabel* pickerLabel = (UILabel*)view;
+    
+    if (!pickerLabel)
+    {
+        pickerLabel = [[UILabel alloc] init];
+        pickerLabel.font = [UIFont fontWithName:@"SourceSansPro-Semibold" size:16];
+        pickerLabel.textAlignment=NSTextAlignmentCenter;
+    }
+    //NSString* tmpyers = self.items[component][row];
+    [pickerLabel setText:self.items[component][row]];
+    
+    return pickerLabel;
 }
 
 // Tell the picker how many rows are available for a given component
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [self.items count];
+    return [self.items[component] count];
 }
 
 // Tell the picker how many components it will have
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
+    return self.items.count;
 }
 
 // Tell the picker the title for a given component
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    //NSString *tmp = @"getting title for row";
-    //printf("%s\n", [tmp UTF8String]);
-    //printf("%d\n", row);
-    
-    //NSString *tmpToReturn = @"tmpreturn";
-    //NSString *tmpRow = self.items[0][row];
-      NSString *tmpToReturn = self.items[row];
-      //    NSLog(@"tmpToReturn: %@", tmpToReturn);
-    //NSLog(@"tmp row: %@", self.items);
-    
-    return tmpToReturn;
+    return self.items[component][row];
 }
 
 // Tell the picker the width of each row for a given component
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    return pickerView.frame.size.width - 30;
+    //return pickerView.frame.size.width - 30;
+    //return 50;
+    //return (pickerView.frame.size.width - 30) / self.items2.count;
+    if(self.items.count > 2)
+        //return pickerView.frame.size.width / self.items2.count;
+        return (pickerView.frame.size.width/* - 30*/) / self.items.count;
+    else
+        return 150;
 }
 
 //
@@ -368,7 +360,9 @@
 {
     if ( IS_IPAD )
     {
-        return CGSizeMake(320, 320);
+        return CGSizeMake(500, 320);
+          //return CGSizeMake(320, 320);
+         //return CGSizeMake(800, 800);
     }
     
 #if defined(__IPHONE_8_0)
@@ -397,29 +391,3 @@
 
 
 
-
-
-
-
-/*
-- (void)pluginInitialize {
-}
-
-
-- (void)showSelector:(CDVInvokedUrlCommand *)command {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [dateFormatter setLocale:enUSPOSIXLocale];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
-    
-    NSDate *now = [NSDate date];
-    NSString *iso8601String = [dateFormatter stringFromDate:now];
-    
-    
-    NSLog(@"%s", "hello from inside plugin");
-    
-    
-    CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:iso8601String];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-}@end
-*/

@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <Cordova/CDVPlugin.h>
 
-@interface SelectorCordovaPlugin : CDVPlugin <UIActionSheetDelegate, UIPopoverControllerDelegate, UIPickerViewDelegate> {
+@interface SelectorCordovaPlugin : CDVPlugin <UIActionSheetDelegate, UIPopoverControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
 }
 
 #pragma mark - Properties
@@ -12,7 +12,7 @@
 @property (nonatomic, strong) UIView *modalView;
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, strong) NSString* displayKey;
-@property (nonatomic, assign) NSInteger itemsCount;
+@property (nonatomic, strong) NSMutableDictionary *selectedValuesDict;
 
 #pragma mark - Instance methods
 
@@ -20,8 +20,3 @@
 
 @end
 
-/*@interface SelectorCordovaPlugin : CDVPlugin {
-}
-
-- (void)showSelector:(CDVInvokedUrlCommand *)command;
-@end*/
