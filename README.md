@@ -42,8 +42,6 @@ Installation via command line:
 
 `cordova plugin add cordova-wheel-selector-plugin`
 
-Note: iOS currently only supports one wheel selector (in the works to support multiple)
-
 
 # Usage
 
@@ -59,8 +57,8 @@ var config = {
     ],
     positiveButtonText: "Yes",
     negativeButtonText: "No",
-    theme: "light | dark",  //lighter or darker theme
-    wrapWheelText: true | false, //wrap the wheel for infinite scroll
+    theme: "light | dark",  //lighter or darker theme, not available on iOS yet
+    wrapWheelText: true | false, //wrap the wheel for infinite scroll, not available on iOS
 
     //advanced usage:
     displayKey: "description" //so can send in different json - see examples below
@@ -73,12 +71,12 @@ var config = {
 
 ## Android
 
-<img src="examples/images/android-video.gif" alt="android video" width="600" height="400">
+<img src="https://github.com/jasonmamy/cordova-wheel-selector-plugin/blob/master/examples/images/android-video.gif" alt="android video" width="600" height="400">
 
 ## iOS
 
 
-<img src="examples/images/mac-single-item-video.gif" alt="iOS video" width="600">
+<img src="https://github.com/jasonmamy/cordova-wheel-selector-plugin/blob/master/examples/images/mac-many-items-video.gif" alt="iOS video" width="600">
 
 
 ## Sample Data
@@ -155,7 +153,7 @@ var config = {
 Produces:
 
 
-<img src="examples/images/fruit.png" alt="fruits" width="400" height="300">
+<img src="https://github.com/jasonmamy/cordova-wheel-selector-plugin/blob/master/examples/images/fruit.png" alt="fruits" width="400" height="300">
 
 
 ## 2 items white theme
@@ -175,7 +173,7 @@ var config = {
 Produces:
 
 
-<img src="examples/images/single_items.png" alt="single items" width="400" height="300">
+<img src="https://github.com/jasonmamy/cordova-wheel-selector-plugin/blob/master/examples/images/single_items.png" alt="single items" width="400" height="300">
 
 
 ### Results:
@@ -220,7 +218,7 @@ var config = {
 ```
 Produces:
 
-<img src="examples/images/quantity_dark_theme.png" alt="measurements" width="400" height="300">
+<img src="https://github.com/jasonmamy/cordova-wheel-selector-plugin/blob/master/examples/images/quantity_dark_theme.png" alt="measurements" width="400" height="300">
 
 
 ## Many items dark theme, with 'wheel wrapping'
@@ -244,7 +242,7 @@ var config = {
 Produces:
 
 
-<img src="examples/images/multiple_items.png" alt="measurements" width="400" height="300">
+<img src="https://github.com/jasonmamy/cordova-wheel-selector-plugin/blob/master/examples/images/multiple_items.png" alt="measurements" width="400" height="300">
 
 ## More complicated usage
 
@@ -300,7 +298,7 @@ var config = {
 Which produces:
 
 
-<img src="examples/images/quantity_complex.png" alt="measurements" width="400" height="300">
+<img src="https://github.com/jasonmamy/cordova-wheel-selector-plugin/blob/master/examples/images/quantity_complex.png" alt="measurements" width="400" height="300">
 
 
 And the corresponding results, you can use the index to retrieve any other values in the original JSON:
