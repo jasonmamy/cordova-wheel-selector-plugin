@@ -273,15 +273,18 @@
     NSArray *sortedKeys = [[self.selectedValuesDict allKeys] sortedArrayUsingSelector: @selector(compare:)];
     
       for (NSString *key in sortedKeys){
-        NSLog(@"key=%@ value=%@", key, [self.selectedValuesDict objectForKey:key]);
-        NSString * theKey = key;
-        NSInteger indexInDict = [theKey integerValue];
-        NSInteger index = [[self.selectedValuesDict objectForKey:key] integerValue];
-        NSString* valueFound = self.items[indexInDict][index];
-        NSDictionary *tmpDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       theKey, @"index",
+          NSString * theKey = key;
+          NSInteger indexInDict = [theKey integerValue];
+          NSInteger index = [[self.selectedValuesDict objectForKey:key] integerValue];
+          NSString * indexAsString = [@(index) stringValue];
+          
+          NSString* valueFound = self.items[indexInDict][index];
+          NSDictionary *tmpDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       indexAsString, @"index",
                                        valueFound, self.displayKey, nil];
-        [arr addObject:tmpDictionary];
+          //NSLog(@"added: index=%ld valueFound=%@ displayKey=%@", (long)index, valueFound, self.displayKey);
+        
+          [arr addObject:tmpDictionary];
     }
     
     CDVPluginResult* pluginResult;
@@ -308,6 +311,7 @@
     // The parameter named row and component represents what was selected.
     NSString* key = [NSString stringWithFormat:@"%li", (long)component];
     [self.selectedValuesDict setValue:@(row) forKey:key];
+    //NSLog(@"setting: key=%@ component=%ld row=%ld", key, (long)component, (long)row);
  }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
@@ -319,7 +323,7 @@
         pickerLabel.font = [UIFont fontWithName:@"SourceSansPro-Semibold" size:16];
         pickerLabel.textAlignment=NSTextAlignmentCenter;
     }
-    //NSString* tmpyers = self.items[component][row];
+
     [pickerLabel setText:self.items[component][row]];
     
     return pickerLabel;
