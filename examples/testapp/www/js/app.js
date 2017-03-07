@@ -239,7 +239,7 @@ angular.module('starter', ['ionic'])
           console.log("result: " + JSON.stringify(result));
           var alertPopup = $ionicPopup.alert({
             title: 'You Selected',
-            template: '<center>' + testdata.complex.numbers[result[0].index].value + ' ' + testdata.complex.measurements[result[1].index].value + '</center>'
+            template: '<center>' + testdata.complex.numbers[result[0].index].value + ' ' + testdata.complex.measurements[result[1].index].text + '</center>'
           });
         });
       } else {
