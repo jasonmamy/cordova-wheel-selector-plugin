@@ -25,6 +25,7 @@ var SelectorCordovaPlugin = {
           displayKey: options.displayKey || 'description',
           items: options.items || {},
           displayItems: displayList,
+          defaultItems: options.defaultItems || {},
           theme: options.theme || 'light',
           wrapWheelText: options.wrapWheelText || false,
           positiveButtonText: options.positiveButtonText || 'Ok',

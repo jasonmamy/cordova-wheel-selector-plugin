@@ -21,8 +21,7 @@
 @property (nonatomic, strong) UIPopoverController *popoverController;
 @property (nonatomic, strong) UIView *modalView;
 @property (nonatomic, strong) NSArray *items;
-
-@property (nonatomic, strong) NSMutableDictionary *selectedValuesDict;
+@property (nonatomic, strong) NSMutableDictionary *itemsSelectedIndexes;
 
 @end
 
@@ -35,20 +34,25 @@
   _options = [command.arguments objectAtIndex:0];
   _items = [_options objectForKey:@"displayItems"];
 
-  _selectedValuesDict = [[NSMutableDictionary alloc] init];
-  //set all selected values to 0th item
-  for(int i = 0; i < self.items.count; ++i){
-    NSString* key = [NSString stringWithFormat:@"%i", i];
-    [_selectedValuesDict setValue:@(0) forKey:key];
-  }
-
-  //TBD: Define selected value
-  /*if([options objectForKey:@"selectedValue"]) {
-   int i = [self getRowWithValue:[options objectForKey:@"selectedValue"]];
-   if (i != -1) [self.pickerView selectRow:i inComponent:0 animated:NO];
-   }*/
-
   UIView *view = [self createPickerView];
+
+  NSDictionary *defaultItems = [_options objectForKey:@"defaultItems"];
+  _itemsSelectedIndexes = [@{} mutableCopy];
+
+  for (int columnIndex = 0; columnIndex < _items.count; columnIndex++) {
+    NSString *columnIndexString = [NSString stringWithFormat:@"%i", columnIndex];
+    NSInteger initialValueIndex = 0;
+
+    if (defaultItems) {
+      NSString *value = [defaultItems objectForKey:columnIndexString];
+      NSUInteger index = [[_items objectAtIndex:columnIndex] indexOfObject:value];
+      if (NSNotFound != index) {
+        initialValueIndex = index;
+      }
+    }
+    [_itemsSelectedIndexes setValue:@(initialValueIndex) forKey:columnIndexString];
+    [_pickerView selectRow:initialValueIndex inComponent:columnIndex animated:NO];
+  }
 
   if (IS_IPAD) {
     return [self presentPopoverForView:view];
@@ -75,17 +79,6 @@
   if (![_options objectForKey:@"negativeButtonText"]) {
     [_options setObject:@"Cancel" forKey:@"negativeButtonText"];
   }
-}
-
-- (int)getRowWithValue:(NSString *)name {
-  for (int i = 0; i <= _items.count; i++) {
-    NSDictionary *item = [_items objectAtIndex:i];
-    NSString *value = [item objectForKey:[_options objectForKey:@"displayKey"]];
-    if ([name isEqualToString:value]) {
-      return i;
-    }
-  }
-  return -1;
 }
 
 - (UIView *)createPickerView {
@@ -155,15 +148,15 @@
 
 - (void)sendResultsFromPickerView:(UIPickerView *)pickerView withButtonIndex:(NSInteger)buttonIndex {
   NSMutableArray *arr = [[NSMutableArray alloc] init];
-  NSArray *sortedKeys = [[_selectedValuesDict allKeys] sortedArrayUsingSelector: @selector(compare:)];
+  NSArray *sortedKeys = [[_itemsSelectedIndexes allKeys] sortedArrayUsingSelector: @selector(compare:)];
 
   for (NSString *key in sortedKeys){
     NSString *theKey = key;
     NSInteger indexInDict = [theKey integerValue];
-    NSInteger index = [[self.selectedValuesDict objectForKey:key] integerValue];
+    NSInteger index = [[_itemsSelectedIndexes objectForKey:key] integerValue];
     NSString *indexAsString = [@(index) stringValue];
 
-    NSString* valueFound = self.items[indexInDict][index];
+    NSString* valueFound = _items[indexInDict][index];
     NSDictionary *tmpDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                    indexAsString, @"index",
                                    valueFound, [_options objectForKey:@"displayKey"], nil];
@@ -292,7 +285,7 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
   // The parameters named row and component represents what was selected.
   NSString* key = [NSString stringWithFormat:@"%li", (long)component];
-  [_selectedValuesDict setValue:@(row) forKey:key];
+  [_itemsSelectedIndexes setValue:@(row) forKey:key];
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
