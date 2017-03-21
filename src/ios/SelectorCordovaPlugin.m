@@ -25,7 +25,6 @@
 
 @end
 
-
 @implementation SelectorCordovaPlugin
 
 - (void)showSelector:(CDVInvokedUrlCommand*)command {
@@ -109,7 +108,7 @@
   UILabel *label =[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 30)];
   [label setTextAlignment:NSTextAlignmentCenter];
   [label setTextColor:(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? [UIColor blackColor] : [UIColor whiteColor]];
-  [label setFont:[UIFont boldSystemFontOfSize:16]];
+  [label setFont:[UIFont boldSystemFontOfSize:[[_options objectForKey:@"fontSize"] floatValue]]];
   [label setBackgroundColor:[UIColor clearColor]];
   [label setText:[_options objectForKey:@"title"]];
 
@@ -273,7 +272,7 @@
   UILabel* pickerLabel = (UILabel*)view;
   if (!pickerLabel) {
     pickerLabel = [[UILabel alloc] init];
-    pickerLabel.font = [UIFont fontWithName:@"SourceSansPro-Semibold" size:16];
+    pickerLabel.font = [UIFont fontWithName:@"SourceSansPro-Semibold" size:[[_options objectForKey:@"fontSize"] floatValue]];
     pickerLabel.textAlignment=NSTextAlignmentCenter;
   }
   [pickerLabel setText:_items[component][row]];

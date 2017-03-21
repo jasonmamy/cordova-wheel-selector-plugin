@@ -28,7 +28,8 @@ var SelectorCordovaPlugin = {
           theme: options.theme || 'light',
           wrapWheelText: options.wrapWheelText || false,
           positiveButtonText: options.positiveButtonText || 'Done',
-          negativeButtonText: options.negativeButtonText || 'Cancel'
+          negativeButtonText: options.negativeButtonText || 'Cancel',
+          fontSize: options.fontSize || 16
       };
 
       for(i in config.items) {
