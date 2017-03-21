@@ -293,10 +293,10 @@
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-  if (self.items.count > 2) {
+  if (self.items.count >= 2) {
     return (pickerView.frame.size.width) / self.items.count;
   } else {
-    return 150;
+    return pickerView.frame.size.width - 20;
   }
 }
 
