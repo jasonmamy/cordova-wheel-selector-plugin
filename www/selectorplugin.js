@@ -21,14 +21,13 @@ var SelectorCordovaPlugin = {
 
       var config = {
           title: options.title || ' ',
-          selectedValue: options.selectedValue || '',
           displayKey: options.displayKey || 'description',
           items: options.items || {},
           displayItems: displayList,
           defaultItems: options.defaultItems || {},
           theme: options.theme || 'light',
           wrapWheelText: options.wrapWheelText || false,
-          positiveButtonText: options.positiveButtonText || 'Ok',
+          positiveButtonText: options.positiveButtonText || 'Done',
           negativeButtonText: options.negativeButtonText || 'Cancel'
       };
 

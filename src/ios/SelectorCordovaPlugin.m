@@ -31,6 +31,7 @@
 - (void)showSelector:(CDVInvokedUrlCommand*)command {
   _callbackId = command.callbackId;
 
+  // NOTE: All default options are assumed to be set in JS code
   _options = [command.arguments objectAtIndex:0];
   _items = [_options objectForKey:@"displayItems"];
 
@@ -58,26 +59,6 @@
     return [self presentPopoverForView:view];
   } else {
     return [self presentModalViewForView:view];
-  }
-}
-
-- (void)setDefaultOptions {
-  // TODO: move to js code
-
-  if (![_options objectForKey:@"displayKey"]) {
-    [_options setObject:@"description" forKey:@"displayKey"];
-  }
-
-  if (![_options objectForKey:@"title"]) {
-    [_options setObject:@"" forKey:@"title"];
-  }
-
-  if (![_options objectForKey:@"positiveButtonText"]) {
-    [_options setObject:@"Done" forKey:@"positiveButtonText"];
-  }
-
-  if (![_options objectForKey:@"negativeButtonText"]) {
-    [_options setObject:@"Cancel" forKey:@"negativeButtonText"];
   }
 }
 
