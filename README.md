@@ -143,7 +143,7 @@ var config = {
     title: "How Many Fruit?",
     items:[
         [data.numbers],
-        [data.fruit] //note: as of now iOS will ignore any arrays other than 1
+        [data.fruit] 
     ],
     positiveButtonText: "Done",
     negativeButtonText: "Cancel"
