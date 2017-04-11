@@ -115,6 +115,7 @@ angular.module('starter', ['ionic'])
           positiveButtonText: "Ok",
           negativeButtonText: "Cancel",
           theme: themeColor,
+          defaultValueIndexes: [2, 3],
           wrapWheelText: wrapWheelText
         }
 

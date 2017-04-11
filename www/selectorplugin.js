@@ -24,6 +24,7 @@ var SelectorCordovaPlugin = {
           selectedValue: options.selectedValue || '',
           displayKey: options.displayKey || 'description',
           items: options.items || {},
+          defaultValueIndexes: options.defaultValueIndexes || [],
           displayItems: displayList,
           theme: options.theme || 'light',
           wrapWheelText: options.wrapWheelText || false,

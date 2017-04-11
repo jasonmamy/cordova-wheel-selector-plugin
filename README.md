@@ -55,6 +55,9 @@ var config = {
         //the order of the items dictates the order they are displayed in the UI
         //also the result has an index which refers to the ordering (see examples below)
     ],
+    defaultValueIndexes: [
+        //indexes of which items to display, example [2,3] (if items.length is 2 for instance)
+    ],
     positiveButtonText: "Yes",
     negativeButtonText: "No",
     theme: "light | dark",  //lighter or darker theme, not available on iOS yet
