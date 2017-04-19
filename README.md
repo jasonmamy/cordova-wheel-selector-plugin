@@ -1,14 +1,7 @@
-
-
-
-
-
-
-
 # Cordova wheel selector plugin
 Native wheel selector for Cordova (Android/iOS).
 
-Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky javascript used.  Can send in as many *data sets* as needed, the UI will *grow* or *shrink* accordingly (see examples for info).
+Can use in Cordova or Ionic (v1 or v2) frameworks, calls native API's so no clunky javascript used.  Can send in as many *data sets* as needed, the UI will *grow* or *shrink* accordingly (see examples for info).
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -27,18 +20,22 @@ Can use in Cordova or Ionic (v1) frameworks, calls native API's so no clunky jav
 	- [2 items dark theme](#2-items-dark-theme)
 	- [Many items dark theme, with 'wheel wrapping'](#many-items-dark-theme-with-wheel-wrapping)
 	- [More complicated usage](#more-complicated-usage)
+- [Ionic 2](#ionic-2)
 - [Development](#development)
 	- [Android](#android)
 	- [IOS](#ios)
 - [Notes:](#notes)
 - [TODO](#todo)
+- [Credits](#credits)
 
 <!-- /TOC -->
 
 
 # Installation
 
-Installation via command line:
+This plugin will work in Ionic v1 AND Ionic v2!
+
+Installation via command line (same for Ionic v1 and v2):
 
 `cordova plugin add cordova-wheel-selector-plugin`
 
@@ -146,7 +143,7 @@ var config = {
     title: "How Many Fruit?",
     items:[
         [data.numbers],
-        [data.fruit] 
+        [data.fruit]
     ],
     positiveButtonText: "Done",
     negativeButtonText: "Cancel"
@@ -184,7 +181,7 @@ Produces:
 window.SelectorCordovaPlugin.showSelector(config, function(result) {
     console.log("result: " + JSON.stringify(result) );
     console.log('User chose number: ' + result[0].description + ' at array index: ' + result[0].index);
-    
+
     //note: as of now in iOS result[1] is ignored
     console.log('User chose fruit: ' + result[1].description + ' at array index: ' + result[1].index);
 }, function() {
@@ -330,6 +327,23 @@ Which outputs:
 Note, in the `result` return value, there is `index` which is the index in the original JSON to the item the user selected (this allows for *reverse-lookups*).    
 
 
+# Ionic 2
+
+To use this plugin in Ionic 2 requires minimal changes, install as usual:
+
+`cordova plugin add cordova-wheel-selector-plugin`
+
+(note, NO need for ANY other configuration/injection/etc)
+
+Then Typescript will complain about this line:
+
+`window.SelectorCordovaPlugin.showSelector(config, function(result) {...`
+
+Reference this line in this way instead and TypeScript will not complain:
+
+`(<any>window).SelectorCordovaPlugin.showSelector(config, function(result) {`
+
+And you're done!
 
 
 
