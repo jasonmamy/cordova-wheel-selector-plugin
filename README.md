@@ -341,7 +341,15 @@ Then Typescript will complain about this line:
 
 Reference this line in this way instead and TypeScript will not complain:
 
-`(<any>window).SelectorCordovaPlugin.showSelector(config, function(result) {`
+```
+let self = this;
+(<any>window).SelectorCordovaPlugin.showSelector(config, function(result) {
+
+  // use self instead of this inside here to access TypeScript methods/properties
+
+}
+
+```
 
 And you're done!
 
