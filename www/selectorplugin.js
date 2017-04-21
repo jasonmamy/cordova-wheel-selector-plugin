@@ -21,15 +21,16 @@ var SelectorCordovaPlugin = {
 
       var config = {
           title: options.title || ' ',
-          selectedValue: options.selectedValue || '',
           displayKey: options.displayKey || 'description',
           items: options.items || {},
           defaultValueIndexes: options.defaultValueIndexes || [],
           displayItems: displayList,
+          defaultItems: options.defaultItems || {},
           theme: options.theme || 'light',
           wrapWheelText: options.wrapWheelText || false,
-          positiveButtonText: options.positiveButtonText || 'Ok',
-          negativeButtonText: options.negativeButtonText || 'Cancel'
+          positiveButtonText: options.positiveButtonText || 'Done',
+          negativeButtonText: options.negativeButtonText || 'Cancel',
+          fontSize: options.fontSize || 16
       };
 
       for(i in config.items) {
