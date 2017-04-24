@@ -3,6 +3,7 @@
 
 @interface SelectorCordovaPlugin : CDVPlugin
 
-- (void)showSelector:(CDVInvokedUrlCommand*)command;
+- (void)showSelector:(CDVInvokedUrlCommand *)command;
+- (void)hideSelector:(CDVInvokedUrlCommand *)command;
 
 @end

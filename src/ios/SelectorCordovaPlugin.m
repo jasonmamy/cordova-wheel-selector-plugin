@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, SelectorResultType) {
 
 @implementation SelectorCordovaPlugin
 
-- (void)showSelector:(CDVInvokedUrlCommand*)command {
+- (void)showSelector:(CDVInvokedUrlCommand *)command {
   _callbackId = command.callbackId;
 
   // NOTE: All default options are assumed to be set in JS code
@@ -63,6 +63,16 @@ typedef NS_ENUM(NSInteger, SelectorResultType) {
   } else {
     return [self presentModalViewForView:view];
   }
+}
+
+- (void)hideSelector:(CDVInvokedUrlCommand *)command {
+  if (_callbackId) {
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR] callbackId:_callbackId];
+    _callbackId = nil;
+  }
+
+  _callbackId = command.callbackId;
+  [self didDismissWithCancelButton:self];
 }
 
 - (UIView *)createPickerView {
