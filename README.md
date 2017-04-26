@@ -67,6 +67,16 @@ var config = {
 
 ```
 
+## The functions that can be called
+
+```js
+
+SelectorCordovaPlugin.showSelector(); //shows the selector
+
+SelectorCordovaPlugin.hideSelector(); //programatically hides the selector - currently iOS only
+
+```
+
 # Screenshots and Examples
 
 ## Android
