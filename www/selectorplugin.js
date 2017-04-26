@@ -23,7 +23,6 @@ var SelectorCordovaPlugin = {
           title: options.title || ' ',
           displayKey: options.displayKey || 'description',
           items: options.items || {},
-          defaultValueIndexes: options.defaultValueIndexes || [],
           displayItems: displayList,
           defaultItems: options.defaultItems || {},
           theme: options.theme || 'light',

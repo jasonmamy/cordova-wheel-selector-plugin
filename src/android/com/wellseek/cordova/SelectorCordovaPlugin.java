@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.wellseek.cordova.SelectorCordovaPlugin.SELECTOR_THEME;
@@ -44,7 +45,8 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
 
     private static final String INDEX_KEY = "index";
     private static final String DISPLAY_ITEMS_KEY = "displayItems";
-    private static final String DEFAULT_SELECTED_VALUES_KEY = "defaultValueIndexes";
+    private static final String DEFAULT_SELECTED_ITEMS_KEY = "defaultItems";
+//    private static final String DEFAULT_SELECTED_VALUES_KEY = "defaultValueIndexes";
     private static final String DISPLAY_KEY = "displayKey";
     private static final String TITLE_KEY = "title";
     private static final String POSITIVE_BUTTON_TEXT_KEY = "positiveButtonText";
@@ -62,12 +64,31 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
 
         if (action.equals("showSelector")) {
 
+            Log.d(TAG, "Showing Wheel Selector");
             final JSONObject options = args.getJSONObject(0);
 
             String config = args.getString(0);
+            Log.d(TAG, "Config options: " + config);
             final JSONArray items = options.getJSONArray(DISPLAY_ITEMS_KEY);
-            final JSONArray defaultSelectedValues = options.getJSONArray(DEFAULT_SELECTED_VALUES_KEY);
+//            final JSONArray defaultSelectedValues = options.getJSONArray(DEFAULT_SELECTED_VALUES_KEY);
+            Log.d(TAG, "1");
+            JSONArray tmp = null;
+            try{
+                tmp = options.getJSONArray(DEFAULT_SELECTED_ITEMS_KEY);
+            }
+            catch(JSONException je)
+            {
+                Log.d(TAG, je.getMessage());
+                tmp = null;
+            }
+
+//            final JSONArray defaultSelectedItems = options.getJSONArray(DEFAULT_SELECTED_ITEMS_KEY);
+            final JSONArray defaultSelectedItems = tmp;
+
+
+            Log.d(TAG, "2");
             final String displayKey = options.getString(DISPLAY_KEY);
+            Log.d(TAG, "3");
             final String title = options.getString(TITLE_KEY);
             final String positiveButton = options.getString(POSITIVE_BUTTON_TEXT_KEY);
             final String negativeButton = options.getString(NEGATIVE_BUTTON_TEXT_KEY);
@@ -87,7 +108,7 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
                     builder.setCancelable(true);
                     List<PickerView> views = null;
                     try {
-                        views = getPickerViews(cordova.getActivity(), items, defaultSelectedValues);
+                        views = getPickerViews(cordova.getActivity(), items, defaultSelectedItems);
                     } catch (JSONException je) {
                         Log.v(TAG, "Exception: " + je.getMessage());
                     }
@@ -174,9 +195,9 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
         List<PickerView> views = new ArrayList<PickerView>();
         for (int i = 0; i < items.length(); ++i) {
             if(defaultSelectedValues != null && defaultSelectedValues.length() == items.length()){
-                views.add(new PickerView(activity, items.getJSONArray(i), defaultSelectedValues.getInt(i)));
+                views.add(new PickerView(activity, items.getJSONArray(i), defaultSelectedValues.getString(i)));
             }else {
-                views.add(new PickerView(activity, items.getJSONArray(i), 0));
+                views.add(new PickerView(activity, items.getJSONArray(i), ""));
             }
         }
         return views;
@@ -232,15 +253,19 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
 
 class PickerView {
     private String[] dataToShow;
-    private int defaultSelectedValueIndex = 0;
+//    private int defaultSelectedValueIndex = 0;
+    private String defaultSelectedItemValue;
     private Activity activity;
     private NumberPicker picker;
 
     private LinearLayout.LayoutParams numPicerParams;
 
-    public PickerView(Activity activity, JSONArray args, int defaultValueIndex) {
+
+//    public PickerView(Activity activity, JSONArray args, int defaultValueIndex) {
+    public PickerView(Activity activity, JSONArray args, String defaulSelectedtItem) {
         dataToShow = SelectorCordovaPlugin.toStringArray(args);
-        defaultSelectedValueIndex = defaultValueIndex;
+//        defaultSelectedValueIndex = defaultValueIndex;
+        defaultSelectedItemValue = defaulSelectedtItem;
         this.activity = activity;
     }
 
@@ -251,12 +276,23 @@ class PickerView {
             picker.setMinValue(0);
             picker.setMaxValue(dataToShow.length - 1);
 
-            if(defaultSelectedValueIndex > (dataToShow.length -1))
-                picker.setValue(dataToShow.length -1);
-            else if(defaultSelectedValueIndex < 0)
+//            dataToShow
+
+
+            int index = -1;
+
+            if(defaultSelectedItemValue != null && defaultSelectedItemValue.length() > 0)
+                index = Arrays.asList(dataToShow).indexOf(defaultSelectedItemValue);
+
+
+            Log.d(SelectorCordovaPlugin.TAG, "Looking for : " + defaultSelectedItemValue + " index: " + index);
+
+//            if(defaultSelectedValueIndex > (dataToShow.length -1))
+//                picker.setValue(dataToShow.length -1);
+            if(index < 0)
                 picker.setValue(0);
             else
-                picker.setValue(defaultSelectedValueIndex);
+                picker.setValue(index);
 
             picker.setDisplayedValues(dataToShow);
             picker.setWrapSelectorWheel(SelectorCordovaPlugin.WHEEL_WRAP);
@@ -308,6 +344,7 @@ class SelectorTheme {
         return android.R.style.Theme_DeviceDefault_Dialog_Alert;
     }
 }
+
 
 
 

@@ -103,8 +103,6 @@ angular.module('starter', ['ionic'])
 
     $scope.selectSomeFruit = function() {
 
-      console.log('theme: ' + themeColor);
-
       if (window.SelectorCordovaPlugin) {
         var configSimple1 = {
           title: "How Many Fruit?",
@@ -248,4 +246,65 @@ angular.module('starter', ['ionic'])
         alert('cordova-wheel-selector-plugin not available in browser, install and run on device!');
       }
     }
+
+    $scope.selectFruitWithDefaultValues = function() {
+
+      if (window.SelectorCordovaPlugin) {
+        var configSimple1 = {
+          title: "Default values should be: 3 Pear ",
+          items: [
+            [testdata.simpledata.numbers],
+            [testdata.simpledata.fruits]
+          ],
+          positiveButtonText: "Ok",
+          negativeButtonText: "Cancel",
+          theme: themeColor,
+          defaultItems: ["3", "Pear"],
+          wrapWheelText: wrapWheelText
+        }
+
+        window.SelectorCordovaPlugin.showSelector(configSimple1, function(result) {
+          console.log("result: " + JSON.stringify(result));
+          var alertPopup = $ionicPopup.alert({
+            title: 'You Selected',
+            template: '<center>' + result[0].description + ' ' + result[1].description + '(s)' + '</center>'
+          });
+        });
+      } else {
+        console.log('no plugin');
+        alert('cordova-wheel-selector-plugin not available in browser, install and run on device!');
+      }
+    }
+
+
+    $scope.selectFruitWithDefaultValuesThatDontExist = function() {
+
+      if (window.SelectorCordovaPlugin) {
+        var configSimple1 = {
+          title: "Default values should be: 1 Apple",
+          items: [
+            [testdata.simpledata.numbers],
+            [testdata.simpledata.fruits]
+          ],
+          positiveButtonText: "Ok",
+          negativeButtonText: "Cancel",
+          theme: themeColor,
+          defaultItems: ["22", "Apricot"], //if not found default to 1st items in list
+          wrapWheelText: wrapWheelText
+        }
+
+        window.SelectorCordovaPlugin.showSelector(configSimple1, function(result) {
+          console.log("result: " + JSON.stringify(result));
+          var alertPopup = $ionicPopup.alert({
+            title: 'You Selected',
+            template: '<center>' + result[0].description + ' ' + result[1].description + '(s)' + '</center>'
+          });
+        });
+      } else {
+        console.log('no plugin');
+        alert('cordova-wheel-selector-plugin not available in browser, install and run on device!');
+      }
+    }
+
+
 })
