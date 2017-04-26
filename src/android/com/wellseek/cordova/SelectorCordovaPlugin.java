@@ -70,25 +70,18 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
             String config = args.getString(0);
             Log.d(TAG, "Config options: " + config);
             final JSONArray items = options.getJSONArray(DISPLAY_ITEMS_KEY);
-//            final JSONArray defaultSelectedValues = options.getJSONArray(DEFAULT_SELECTED_VALUES_KEY);
-            Log.d(TAG, "1");
-            JSONArray tmp = null;
-            try{
-                tmp = options.getJSONArray(DEFAULT_SELECTED_ITEMS_KEY);
+
+            JSONArray tmpDefaultItemsMightNotBeSet = null;
+
+            try {
+                tmpDefaultItemsMightNotBeSet = options.getJSONArray(DEFAULT_SELECTED_ITEMS_KEY);
             }
-            catch(JSONException je)
-            {
-                Log.d(TAG, je.getMessage());
-                tmp = null;
+            catch(JSONException je) {
+                tmpDefaultItemsMightNotBeSet = null;
             }
 
-//            final JSONArray defaultSelectedItems = options.getJSONArray(DEFAULT_SELECTED_ITEMS_KEY);
-            final JSONArray defaultSelectedItems = tmp;
-
-
-            Log.d(TAG, "2");
+            final JSONArray defaultSelectedItems = tmpDefaultItemsMightNotBeSet;
             final String displayKey = options.getString(DISPLAY_KEY);
-            Log.d(TAG, "3");
             final String title = options.getString(TITLE_KEY);
             final String positiveButton = options.getString(POSITIVE_BUTTON_TEXT_KEY);
             final String negativeButton = options.getString(NEGATIVE_BUTTON_TEXT_KEY);
@@ -253,42 +246,29 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
 
 class PickerView {
     private String[] dataToShow;
-//    private int defaultSelectedValueIndex = 0;
     private String defaultSelectedItemValue;
     private Activity activity;
     private NumberPicker picker;
 
     private LinearLayout.LayoutParams numPicerParams;
 
-
-//    public PickerView(Activity activity, JSONArray args, int defaultValueIndex) {
     public PickerView(Activity activity, JSONArray args, String defaulSelectedtItem) {
         dataToShow = SelectorCordovaPlugin.toStringArray(args);
-//        defaultSelectedValueIndex = defaultValueIndex;
         defaultSelectedItemValue = defaulSelectedtItem;
         this.activity = activity;
     }
 
     public NumberPicker getNumberPicker() {
         if (picker == null) {
-            //picker = new NumberPicker(cw);
             picker = new NumberPicker(activity);
             picker.setMinValue(0);
             picker.setMaxValue(dataToShow.length - 1);
-
-//            dataToShow
-
 
             int index = -1;
 
             if(defaultSelectedItemValue != null && defaultSelectedItemValue.length() > 0)
                 index = Arrays.asList(dataToShow).indexOf(defaultSelectedItemValue);
 
-
-            Log.d(SelectorCordovaPlugin.TAG, "Looking for : " + defaultSelectedItemValue + " index: " + index);
-
-//            if(defaultSelectedValueIndex > (dataToShow.length -1))
-//                picker.setValue(dataToShow.length -1);
             if(index < 0)
                 picker.setValue(0);
             else
