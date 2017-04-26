@@ -12,6 +12,10 @@
 // UIInterfaceOrientationMask.
 #define OrientationMaskSupportsOrientation(mask, orientation)   ((mask & (1 << orientation)) != 0)
 
+typedef NS_ENUM(NSInteger, SelectorResultType) {
+  SelectorResultTypeCanceled = 0,
+  SelectorResultTypeDone = 1
+};
 
 @interface SelectorCordovaPlugin () <UIActionSheetDelegate, UIPopoverControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -27,7 +31,7 @@
 
 @implementation SelectorCordovaPlugin
 
-- (void)showSelector:(CDVInvokedUrlCommand*)command {
+- (void)showSelector:(CDVInvokedUrlCommand *)command {
   _callbackId = command.callbackId;
 
   // NOTE: All default options are assumed to be set in JS code
@@ -59,6 +63,16 @@
   } else {
     return [self presentModalViewForView:view];
   }
+}
+
+- (void)hideSelector:(CDVInvokedUrlCommand *)command {
+  if (_callbackId) {
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR] callbackId:_callbackId];
+    _callbackId = nil;
+  }
+
+  _callbackId = command.callbackId;
+  [self didDismissWithCancelButton:self];
 }
 
 - (UIView *)createPickerView {
@@ -126,33 +140,36 @@
   return toolbar;
 }
 
-- (void)sendResultsFromPickerView:(UIPickerView *)pickerView withButtonIndex:(NSInteger)buttonIndex {
-  NSMutableArray *arr = [[NSMutableArray alloc] init];
-  NSArray *sortedKeys = [[_itemsSelectedIndexes allKeys] sortedArrayUsingSelector: @selector(compare:)];
+- (void)sendResultsFromPickerView:(UIPickerView *)pickerView resultType:(SelectorResultType)resultType {
+  CDVPluginResult *pluginResult;
 
-  for (NSString *key in sortedKeys){
-    NSString *theKey = key;
-    NSInteger indexInDict = [theKey integerValue];
-    NSInteger index = [[_itemsSelectedIndexes objectForKey:key] integerValue];
-    NSString *indexAsString = [@(index) stringValue];
+  if (resultType == SelectorResultTypeDone) {
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    NSArray *sortedKeys = [[_itemsSelectedIndexes allKeys] sortedArrayUsingSelector: @selector(compare:)];
 
-    NSString* valueFound = _items[indexInDict][index];
-    NSDictionary *tmpDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   indexAsString, @"index",
-                                   valueFound, [_options objectForKey:@"displayKey"], nil];
+    for (NSString *key in sortedKeys) {
+      NSString *theKey = key;
+      NSInteger indexInDict = [theKey integerValue];
+      NSInteger index = [[_itemsSelectedIndexes objectForKey:key] integerValue];
+      NSString *indexAsString = [@(index) stringValue];
 
-    [arr addObject:tmpDictionary];
-  }
+      NSString *valueFound = _items[indexInDict][index];
+      NSDictionary *tmpDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     indexAsString, @"index",
+                                     valueFound, [_options objectForKey:@"displayKey"], nil];
 
-  CDVPluginResult* pluginResult;
+      [arr addObject:tmpDictionary];
+    }
 
-  if (buttonIndex == 0) {
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-  } else {
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:arr];
   }
 
-  [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];;
+  if (resultType == SelectorResultTypeCanceled) {
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+  }
+
+  [self.commandDelegate sendPluginResult:pluginResult callbackId:_callbackId];
+  _callbackId = nil;
 }
 
 #pragma mark - Show picker
@@ -209,39 +226,44 @@
 
   if (OrientationMaskSupportsOrientation(supportedInterfaceOrientations, DEVICE_ORIENTATION)) {
     if (IS_IPAD) {
-      [self dismissPopoverController:_popoverController withButtonIndex:0 animated:YES];
+      [self dismissPopoverController:_popoverController animated:YES];
     } else {
-      [self dismissModalView:_modalView withButtonIndex:0 animated:YES];
+      [self dismissModalView:_modalView animated:YES];
     }
+
+    [self sendResultsFromPickerView:_pickerView resultType:SelectorResultTypeCanceled];
   }
 }
 
 - (IBAction)didDismissWithDoneButton:(id)sender {
   if (IS_IPAD) {
-    [self dismissPopoverController:_popoverController withButtonIndex:1 animated:YES];
+    [self dismissPopoverController:_popoverController animated:YES];
   } else {
-    [self dismissModalView:_modalView withButtonIndex:1 animated:YES];
+    [self dismissModalView:_modalView animated:YES];
   }
+
+  [self sendResultsFromPickerView:_pickerView resultType:SelectorResultTypeDone];
 }
 
 - (IBAction)didDismissWithCancelButton:(id)sender {
   if (IS_IPAD) {
-    [self dismissPopoverController:_popoverController withButtonIndex:0 animated:YES];
+    [self dismissPopoverController:_popoverController animated:YES];
   } else {
-    [self dismissModalView:_modalView withButtonIndex:0 animated:YES];
+    [self dismissModalView:_modalView animated:YES];
   }
+
+  [self sendResultsFromPickerView:_pickerView resultType:SelectorResultTypeCanceled];
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-  [self sendResultsFromPickerView:_pickerView withButtonIndex:0];
+  [self sendResultsFromPickerView:_pickerView resultType:SelectorResultTypeCanceled];
 }
 
-- (void)dismissPopoverController:(UIPopoverController *)popoverController withButtonIndex:(NSInteger)buttonIndex animated:(Boolean)animated {
+- (void)dismissPopoverController:(UIPopoverController *)popoverController animated:(Boolean)animated {
   [popoverController dismissPopoverAnimated:animated];
-  [self sendResultsFromPickerView:_pickerView withButtonIndex:buttonIndex];
 }
 
-- (void)dismissModalView:(UIView *)modalView withButtonIndex:(NSInteger)buttonIndex animated:(Boolean)animated {
+- (void)dismissModalView:(UIView *)modalView animated:(Boolean)animated {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
 
   // Hide the view animated
@@ -256,8 +278,6 @@
                    completion:^(BOOL finished) {
                      [_modalView removeFromSuperview];
                    }];
-
-  [self sendResultsFromPickerView:_pickerView withButtonIndex:buttonIndex];
 }
 
 #pragma mark - UIPickerViewDelegate
