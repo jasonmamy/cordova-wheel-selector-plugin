@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Wheel Selector Example
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <p>{{selected}}</p>
+  <ion-list>
+    <ion-item><button ion-button (click)="simpleFruit()">Fruit</button></ion-item>
+    <ion-item><button ion-button (click)="selectNumber()">Number</button></ion-item>
+    <ion-item><button ion-button (click)="selectFruitQuantity()">Fruit quantity</button></ion-item>
+    <ion-item><button ion-button (click)="selectFruitQuantityFromPlanet()">Fruit quantity from planet</button></ion-item>
+    <ion-item><button ion-button (click)="selectQuanity()">Quantity</button></ion-item>
+    <ion-item><button ion-button (click)="selectWithDefaultValues()">Default values</button></ion-item>
+    <ion-item><button ion-button (click)="selectDefaultValuesDoNotExist()">Default values doe not exist</button></ion-item>
+  </ion-list>
+</ion-content>
