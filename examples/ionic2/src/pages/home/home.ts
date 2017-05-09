@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { JasboPlugin } from '@ionic-native/jasbo-plugin';
+import { WheelSelector } from '@ionic-native/wheel-selector';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [JasboPlugin]
+  providers: [WheelSelector]
 })
 export class HomePage {
 
@@ -76,7 +76,7 @@ export class HomePage {
 
   public selected = '';
 
-  constructor(public navCtrl: NavController, public selector: JasboPlugin) {
+  constructor(public navCtrl: NavController, public selector: WheelSelector) {
   }
 
   simpleFruit() {
