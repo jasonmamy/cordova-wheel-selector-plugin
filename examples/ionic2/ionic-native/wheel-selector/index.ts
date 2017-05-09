@@ -1,5 +1,5 @@
-import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
 import { Injectable } from '@angular/core';
+import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
 
 export interface WheelSelectorOptions {
   /**
@@ -22,27 +22,32 @@ export interface WheelSelectorOptions {
 
   /**
    * The 'ok' button text
+   * Default: Done
    */
   positiveButtonText?: string;
 
   /**
    * The 'cancel' button text
+   * Default: Cancel
    */
   negativeButtonText?: string;
 
   /**
    * Android only - theme color, 'light' or 'dark'.
+   * Default: light
    */
   theme?: string;
 
   /**
    * Whether to have the wheels 'wrap' (Android only)
+   * Default: false
    */
   wrapWheelText?: boolean;
 
   /**
    * The json key to display, by default it is description, this allows for setting any
    * key/value to be displayed
+   * Default: description
    */
   displayKey?: string;
 }
@@ -93,17 +98,26 @@ export interface WheelSelectorData {
  *     );
  *
  * ```
+ *
+ * @interfaces
+ * WheelSelectorOptions
  */
 @Plugin({
   pluginName: 'WheelSelector',
   plugin: 'cordova-wheel-selector-plugin',
   pluginRef: 'SelectorCordovaPlugin',
-  repo: '',
-  platforms: []
+  repo: 'https://github.com/jasonmamy/cordova-wheel-selector-plugin',
+  platforms: ['Android', 'iOS']
 })
+
 @Injectable()
 export class WheelSelector extends IonicNativePlugin {
 
+  /**
+   * Shows the wheel selector
+   * @param {WheelSelectorOptions} options Options for the wheel selector
+   * @returns {Promise<WheelSelectorData>} Returns a promise that resolves with the selected items, or an error.
+   */
   @Cordova()
   show(options: WheelSelectorOptions): Promise<WheelSelectorData> {
     return;
