@@ -1,4 +1,3 @@
-
 var PLUGIN_NAME = 'SelectorCordovaPlugin';
 var SelectorCordovaPlugin = function() {};
 
@@ -52,6 +51,10 @@ SelectorCordovaPlugin.prototype.showSelector = function(options, success_callbac
   }
 
   return cordova.exec(_success_callback, _error_callback, PLUGIN_NAME, 'showSelector', [config]);
+};
+
+SelectorCordovaPlugin.prototype.show = function(options, success_callback, error_callback) {
+    return SelectorCordovaPlugin.prototype.showSelector(options, success_callback, error_callback); 
 };
 
 SelectorCordovaPlugin.prototype.hideSelector = function(success_callback, error_callback) {

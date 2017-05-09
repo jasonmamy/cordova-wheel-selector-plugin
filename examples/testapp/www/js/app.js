@@ -116,7 +116,6 @@ angular.module('starter', ['ionic'])
           defaultValueIndexes: [2, 3],
           wrapWheelText: wrapWheelText
         }
-
         window.SelectorCordovaPlugin.showSelector(configSimple1, function(result) {
           console.log("result: " + JSON.stringify(result));
           var alertPopup = $ionicPopup.alert({
