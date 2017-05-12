@@ -55668,79 +55668,28 @@ var HomePage = (function () {
                 { description: "Neptune" }
             ]
         };
-        this.complex = {
-            numbers: [
-                //intentional blanks - show up in ui as blanks
-                { id: "", text: "", value: "" },
-                { id: "id1", text: "1", value: "one" },
-                { id: "id2", text: "2", value: "two" },
-                { id: "id3", text: "3", value: "three" },
-                { id: "id4", text: "4", value: "four" },
-                { id: "id5", text: "5", value: "five" },
-                { id: "id6", text: "6", value: "six" },
-                { id: "id7", text: "7", value: "seven" },
-                { id: "id8", text: "8", value: "eight" },
-                { id: "id9", text: "9", value: "nine" },
-                { id: "id10", text: "10", value: "ten" }
-            ],
-            measurements: [
-                //intentional blanks - show up in ui as blanks
-                { id: "", text: "", value: "" },
-                { id: "id-17", text: "Teaspoon", value: "1tsp" },
-                { id: "id-23", text: "Tablespoon", value: "1tbsp" },
-                { id: "id-88", text: "Cup(s)", value: "1cup" },
-                { id: "id-54", text: "Quart(s)", value: "1quart" },
-                { id: "id-32", text: "Package (7 oz)", value: "7ozPckg" },
-                { id: "id-58", text: "Package (12 oz)", value: "12ozPckg" }
-            ]
-        };
         this.selected = '';
     }
-    HomePage.prototype.simpleExample = function () {
-        var jsonData = {
-            numbers: [
-                { description: "1" },
-                { description: "2" },
-                { description: "3" }
-            ],
-            fruits: [
-                { description: "Apple" },
-                { description: "Banana" },
-                { description: "Tangerine" }
-            ],
-        };
-        this.selector.show({
-            title: "Select some Fruit",
-            items: [
-                [jsonData.numbers],
-                [jsonData.fruits]
-            ],
-        }).then(function (result) {
-            console.log('Selected: ' + result[0].description + ' at index: ' + result[0].index
-                + ' and ' + result[1].description + ' at index: ' + result[1].index);
-        }, function (err) { return console.log('Error occurred while getting result: ', err); });
-    };
     HomePage.prototype.simpleFruit = function () {
         var _this = this;
         this.selector.show({
             title: "How Much?",
             items: [
-                [this.simpledata.numbers],
-                [this.simpledata.fruits]
+                this.simpledata.numbers, this.simpledata.fruits
             ],
             positiveButtonText: "Ok",
             negativeButtonText: "Nope",
             wrapWheelText: true,
         }).then(function (result) {
             _this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description;
-        }, function (err) { return console.log('Error occurred while getting result: ', err); });
+        }, function (err) { return console.log('Error occurred while getting result: ' + JSON.stringify(err)); });
     };
     HomePage.prototype.selectNumber = function () {
         var _this = this;
         this.selector.show({
             title: "How Many?",
             items: [
-                [this.simpledata.numbers]
+                this.simpledata.numbers
             ],
         }).then(function (result) {
             _this.selected = 'Selected: ' + result[0].description;
@@ -55751,9 +55700,9 @@ var HomePage = (function () {
         this.selector.show({
             title: "How Many?",
             items: [
-                [this.simpledata.numbers],
-                [this.simpledata.measurements],
-                [this.simpledata.fruits]
+                this.simpledata.numbers,
+                this.simpledata.measurements,
+                this.simpledata.fruits
             ],
         }).then(function (result) {
             _this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description + ' ' + result[2].description;
@@ -55764,10 +55713,10 @@ var HomePage = (function () {
         this.selector.show({
             title: "How Many?",
             items: [
-                [this.simpledata.numbers],
-                [this.simpledata.measurements],
-                [this.simpledata.fruits],
-                [this.simpledata.planets]
+                this.simpledata.numbers,
+                this.simpledata.measurements,
+                this.simpledata.fruits,
+                this.simpledata.planets
             ],
             wrapWheelText: true
         }).then(function (result) {
@@ -55779,8 +55728,8 @@ var HomePage = (function () {
         this.selector.show({
             title: "How Many?",
             items: [
-                [this.simpledata.numbers],
-                [this.simpledata.measurements]
+                this.simpledata.numbers,
+                this.simpledata.measurements
             ],
             wrapWheelText: true
         }).then(function (result) {
@@ -55790,13 +55739,16 @@ var HomePage = (function () {
     HomePage.prototype.selectWithDefaultValues = function () {
         var _this = this;
         this.selector.show({
-            title: "Default selected values should be: 3 Pear",
+            title: "Default selected values should be: 3 Grapefruit",
             items: [
-                [this.simpledata.numbers],
-                [this.simpledata.fruits]
+                this.simpledata.numbers,
+                this.simpledata.fruits
             ],
             wrapWheelText: true,
-            defaultItems: ["3", "Pear"]
+            defaultItems: [
+                this.simpledata.numbers[2],
+                this.simpledata.fruits[4]
+            ]
         }).then(function (result) {
             _this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description;
         }, function (err) { return console.log('Error occurred while getting result: ', err); });
@@ -55806,10 +55758,9 @@ var HomePage = (function () {
         this.selector.show({
             title: "Default selected values should be: 1 Apple",
             items: [
-                [this.simpledata.numbers],
-                [this.simpledata.fruits]
+                this.simpledata.numbers,
+                this.simpledata.fruits
             ],
-            defaultItems: ["71", "Figs"] //these don't exist, so default to 1st item(s)
         }).then(function (result) {
             _this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description;
         }, function (err) { return console.log('Error occurred while getting result: ', err); });
@@ -55818,7 +55769,7 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Wheel Selector Example\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <p>{{selected}}</p>\n  <ion-list>\n    <ion-item><button ion-button (click)="simpleExample()">Example</button></ion-item>\n    <ion-item><button ion-button (click)="simpleFruit()">Fruit</button></ion-item>\n    <ion-item><button ion-button (click)="selectNumber()">Number</button></ion-item>\n    <ion-item><button ion-button (click)="selectFruitQuantity()">Fruit quantity</button></ion-item>\n    <ion-item><button ion-button (click)="selectFruitQuantityFromPlanet()">Fruit quantity from planet</button></ion-item>\n    <ion-item><button ion-button (click)="selectQuanity()">Quantity</button></ion-item>\n    <ion-item><button ion-button (click)="selectWithDefaultValues()">Default values</button></ion-item>\n    <ion-item><button ion-button (click)="selectDefaultValuesDoNotExist()">Default values doe not exist</button></ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/,
+        selector: 'page-home',template:/*ion-inline-start:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Ionic2 Wheel Selector Example\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <p>{{selected}}</p>\n  <ion-list>\n    <ion-item><button ion-button (click)="simpleFruit()">Fruit</button></ion-item>\n    <ion-item><button ion-button (click)="selectNumber()">Number</button></ion-item>\n    <ion-item><button ion-button (click)="selectFruitQuantity()">Fruit quantity</button></ion-item>\n    <ion-item><button ion-button (click)="selectFruitQuantityFromPlanet()">Fruit quantity from planet</button></ion-item>\n    <ion-item><button ion-button (click)="selectQuanity()">Quantity</button></ion-item>\n    <ion-item><button ion-button (click)="selectWithDefaultValues()">Default values</button></ion-item>\n    <ion-item><button ion-button (click)="selectDefaultValuesDoNotExist()">Default values doe not exist</button></ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */]]
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */]])
@@ -100980,8 +100931,8 @@ var IonicNativePlugin = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ionic_native_core__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_core__ = __webpack_require__(46);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WheelSelector; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -101005,49 +100956,120 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 /**
+ * @beta
  * @name WheelSelector Plugin
  * @description Native wheel selector for Cordova (Android/iOS).
  *
  * @usage
  * ```
- * import { WheelSelector } from 'ionic-native';
+ * import { WheelSelector } from '@ionic-native/wheel-selector';
  *
  *
  * constructor(private selector: WheelSelector) { }
  *
  * ...
  *
+ * let jsonData = {
+ *     numbers: [
+ *      { description: "1" },
+ *       { description: "2" },
+ *       { description: "3" }
+ *     ],
+ *     fruits: [
+ *       { description: "Apple" },
+ *       { description: "Banana" },
+ *       { description: "Tangerine" }
+ *     ],
+ *   };
+ *
+ *   //use most of the default values
+ *   this.selector.show({
+ *     title: "Select some Fruit",
+ *     items: [
+ *       jsonData.numbers,
+ *       jsonData.fruits
+ *     ]
+ *   }).then(
+ *     result => {
+ *       console.log('Selected: ' + result[0].description + ' at index: ' + result[0].index
+ *         + ' and ' + result[1].description + ' at index: ' + result[1].index);
+ *     },
+ *     err => console.log('Error occurred while getting result: ', err)
+ *     );
+ *
+ *   ...
+ *
+ *   //set some initial default values to display: "2", "Tangerine"
+ *   this.selector.show({
+ *     title: "Select some Fruit",
+ *     items: [
+ *       jsonData.numbers,
+ *       jsonData.fruits
+ *     ],
+ *     defaultItems: [
+ *       jsonData.numbers[1],
+ *       jsonData.fruits[2]
+ *     ]
+ *   }).then(
+ *     result => {
+ *       console.log('Selected: ' + result[0].description + ' at index: ' + result[0].index
+ *         + ' and ' + result[1].description + ' at index: ' + result[1].index);
+ *     },
+ *     err => console.log('Error occurred while getting result: ', err)
+ *     );
+ *
  *
  * ```
+ *
+ * @interfaces
+ * WheelSelectorOptions
  */
 var WheelSelector = (function (_super) {
     __extends(WheelSelector, _super);
     function WheelSelector() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * Shows the wheel selector
+     * @param {WheelSelectorOptions} options Options for the wheel selector
+     * @returns {Promise<WheelSelectorData>} Returns a promise that resolves with the selected items, or an error.
+     */
     WheelSelector.prototype.show = function (options) {
         return;
     };
+    /**
+     * Hide the selector
+     * @returns {Promise<void>}
+     */
+    WheelSelector.prototype.hideSelector = function () { return; };
     return WheelSelector;
-}(__WEBPACK_IMPORTED_MODULE_0__ionic_native_core__["c" /* IonicNativePlugin */]));
+}(__WEBPACK_IMPORTED_MODULE_1__ionic_native_core__["c" /* IonicNativePlugin */]));
 WheelSelector.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["l" /* Injectable */] },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* Injectable */] },
 ];
 /** @nocollapse */
 WheelSelector.ctorParameters = function () { return []; };
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__ionic_native_core__["a" /* Cordova */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ionic_native_core__["a" /* Cordova */])(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], WheelSelector.prototype, "show", null);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ionic_native_core__["a" /* Cordova */])({
+        platforms: ['iOS']
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], WheelSelector.prototype, "hideSelector", null);
 WheelSelector = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__ionic_native_core__["b" /* Plugin */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ionic_native_core__["b" /* Plugin */])({
         pluginName: 'WheelSelector',
         plugin: 'cordova-wheel-selector-plugin',
         pluginRef: 'SelectorCordovaPlugin',
-        repo: '',
-        platforms: []
+        repo: 'https://github.com/jasonmamy/cordova-wheel-selector-plugin',
+        platforms: ['Android', 'iOS']
     })
 ], WheelSelector);
 

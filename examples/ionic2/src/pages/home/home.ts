@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { WheelSelector } from '@ionic-native/wheel-selector';
+import { WheelSelectorItem } from '@ionic-native/wheel-selector';
 
 @Component({
   selector: 'page-home',
@@ -47,33 +48,6 @@ export class HomePage {
     ]
   }
 
-  complex = {
-    numbers: [
-      //intentional blanks - show up in ui as blanks
-      { id: "", text: "", value: "" },
-      { id: "id1", text: "1", value: "one" },
-      { id: "id2", text: "2", value: "two" },
-      { id: "id3", text: "3", value: "three" },
-      { id: "id4", text: "4", value: "four" },
-      { id: "id5", text: "5", value: "five" },
-      { id: "id6", text: "6", value: "six" },
-      { id: "id7", text: "7", value: "seven" },
-      { id: "id8", text: "8", value: "eight" },
-      { id: "id9", text: "9", value: "nine" },
-      { id: "id10", text: "10", value: "ten" }
-    ],
-    measurements: [
-      //intentional blanks - show up in ui as blanks
-      { id: "", text: "", value: "" },
-      { id: "id-17", text: "Teaspoon", value: "1tsp" },
-      { id: "id-23", text: "Tablespoon", value: "1tbsp" },
-      { id: "id-88", text: "Cup(s)", value: "1cup" },
-      { id: "id-54", text: "Quart(s)", value: "1quart" },
-      { id: "id-32", text: "Package (7 oz)", value: "7ozPckg" },
-      { id: "id-58", text: "Package (12 oz)", value: "12ozPckg" }
-    ]
-  }
-
   public selected = '';
 
   constructor(public navCtrl: NavController, public selector: WheelSelector) {
@@ -83,8 +57,7 @@ export class HomePage {
     this.selector.show({
       title: "How Much?",
       items: [
-        [this.simpledata.numbers],
-        [this.simpledata.fruits]
+        this.simpledata.numbers, this.simpledata.fruits
       ],
       positiveButtonText: "Ok",
       negativeButtonText: "Nope",
@@ -93,7 +66,7 @@ export class HomePage {
       result => {
         this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description;
       },
-      err => console.log('Error occurred while getting result: ', err)
+      err => console.log('Error occurred while getting result: ' + JSON.stringify(err))
       );
   }
 
@@ -101,7 +74,7 @@ export class HomePage {
     this.selector.show({
       title: "How Many?",
       items: [
-        [this.simpledata.numbers]
+        this.simpledata.numbers
       ],
     }).then(
       result => {
@@ -115,9 +88,9 @@ export class HomePage {
     this.selector.show({
       title: "How Many?",
       items: [
-        [this.simpledata.numbers],
-        [this.simpledata.measurements],
-        [this.simpledata.fruits]
+        this.simpledata.numbers,
+        this.simpledata.measurements,
+        this.simpledata.fruits
       ],
     }).then(
       result => {
@@ -131,10 +104,10 @@ export class HomePage {
     this.selector.show({
       title: "How Many?",
       items: [
-        [this.simpledata.numbers],
-        [this.simpledata.measurements],
-        [this.simpledata.fruits],
-        [this.simpledata.planets]
+        this.simpledata.numbers,
+        this.simpledata.measurements,
+        this.simpledata.fruits,
+        this.simpledata.planets
       ],
       wrapWheelText: true
     }).then(
@@ -148,8 +121,8 @@ export class HomePage {
     this.selector.show({
       title: "How Many?",
       items: [
-        [this.simpledata.numbers],
-        [this.simpledata.measurements]
+        this.simpledata.numbers,
+        this.simpledata.measurements
       ],
       wrapWheelText: true
     }).then(
@@ -158,33 +131,21 @@ export class HomePage {
       },
       err => console.log('Error occurred while getting result: ', err)
       );
-
   }
+
   selectWithDefaultValues() {
+
     this.selector.show({
-      title: "Default selected values should be: 3 Pear",
+      title: "Default selected values should be: 3 Grapefruit",
       items: [
-        [this.simpledata.numbers],
-        [this.simpledata.fruits]
+        this.simpledata.numbers,
+        this.simpledata.fruits
       ],
       wrapWheelText: true,
-      defaultItems: ["3", "Pear"]
-    }).then(
-      result => {
-        this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description;
-      },
-      err => console.log('Error occurred while getting result: ', err)
-      );
-  }
-
-  selectDefaultValuesDoNotExist() {
-    this.selector.show({
-      title: "Default selected values should be: 1 Apple",
-      items: [
-        [this.simpledata.numbers],
-        [this.simpledata.fruits]
-      ],
-      defaultItems: ["71", "Figs"] //these don't exist, so default to 1st item(s)
+      defaultItems: [
+        this.simpledata.numbers[2],
+        this.simpledata.fruits[4]
+      ]
     }).then(
       result => {
         this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description;
