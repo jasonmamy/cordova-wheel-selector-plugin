@@ -55631,7 +55631,7 @@ var HomePage = (function () {
     function HomePage(navCtrl, selector) {
         this.navCtrl = navCtrl;
         this.selector = selector;
-        this.simpledata = {
+        this.jsonData = {
             numbers: [
                 { description: "1" },
                 { description: "2" },
@@ -55666,22 +55666,73 @@ var HomePage = (function () {
                 { description: "Earth" },
                 { description: "Pluto" },
                 { description: "Neptune" }
-            ]
+            ],
+            firstNames: [
+                { name: "Fred", id: '1' },
+                { name: "Jane", id: '2' },
+                { name: "Bob", id: '3' },
+                { name: "Earl", id: '4' },
+                { name: "Eunice", id: '5' }
+            ],
+            lastNames: [
+                { name: "Johnson", id: '100' },
+                { name: "Doe", id: '101' },
+                { name: "Kinishiwa", id: '102' },
+                { name: "Gordon", id: '103' },
+                { name: "Smith", id: '104' }
+            ],
+            uuids: [
+                { id: "f70432b8-db2a-4cc3-a3a1-1e06c09cf814" },
+                { id: "435e01f1-77c1-4154-9a2f-531b64297db2" },
+                { id: "652b4ff5-c8a0-480e-bfd1-abb47c983914" },
+                { id: "8ef9abe3-0968-4265-a6b2-dec270a85920" },
+                { id: "c064fcb5-49e6-4976-bc60-c2eeda601f4b" }
+            ],
         };
-        this.selected = '';
     }
+    //more complex as overrides which key to display
+    //then retrieve properties from original data
+    HomePage.prototype.selectNames = function () {
+        var _this = this;
+        this.selector.show({
+            title: "Who?",
+            items: [
+                this.jsonData.firstNames, this.jsonData.lastNames
+            ],
+            displayKey: 'name',
+            defaultItems: [
+                this.jsonData.firstNames[2],
+                this.jsonData.lastNames[3]
+            ]
+        }).then(function (result) {
+            _this.selected = result[0].name + ' (id= ' + _this.jsonData.firstNames[result[0].index].id + '), ' +
+                result[1].name + ' (id=' + _this.jsonData.lastNames[result[1].index].id + ')';
+        }, function (err) { return console.log('Error occurred while getting result: ' + JSON.stringify(err)); });
+    };
+    HomePage.prototype.selectUuids = function () {
+        var _this = this;
+        this.selector.show({
+            title: "Select a UUID",
+            items: [
+                this.jsonData.uuids
+            ],
+            displayKey: 'id'
+        }).then(function (result) {
+            _this.selected = result[0].id;
+        }, function (err) { return console.log('Error occurred while getting result: ' + JSON.stringify(err)); });
+    };
     HomePage.prototype.simpleFruit = function () {
         var _this = this;
         this.selector.show({
             title: "How Much?",
             items: [
-                this.simpledata.numbers, this.simpledata.fruits
+                this.jsonData.numbers, this.jsonData.fruits
             ],
             positiveButtonText: "Ok",
             negativeButtonText: "Nope",
             wrapWheelText: true,
         }).then(function (result) {
-            _this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description;
+            _this.selected = result[0].description + ' ' + result[1].description;
         }, function (err) { return console.log('Error occurred while getting result: ' + JSON.stringify(err)); });
     };
     HomePage.prototype.selectNumber = function () {
@@ -55689,10 +55740,11 @@ var HomePage = (function () {
         this.selector.show({
             title: "How Many?",
             items: [
-                this.simpledata.numbers
+                this.jsonData.numbers
             ],
         }).then(function (result) {
-            _this.selected = 'Selected: ' + result[0].description;
+            console.log('*******result:' + JSON.stringify(result));
+            _this.selected = result[0].description;
         }, function (err) { return console.log('Error occurred while getting result: ', err); });
     };
     HomePage.prototype.selectFruitQuantity = function () {
@@ -55700,12 +55752,12 @@ var HomePage = (function () {
         this.selector.show({
             title: "How Many?",
             items: [
-                this.simpledata.numbers,
-                this.simpledata.measurements,
-                this.simpledata.fruits
+                this.jsonData.numbers,
+                this.jsonData.measurements,
+                this.jsonData.fruits
             ],
         }).then(function (result) {
-            _this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description + ' ' + result[2].description;
+            _this.selected = result[0].description + ' ' + result[1].description + ' ' + result[2].description;
         }, function (err) { return console.log('Error occurred while getting result: ', err); });
     };
     HomePage.prototype.selectFruitQuantityFromPlanet = function () {
@@ -55713,14 +55765,15 @@ var HomePage = (function () {
         this.selector.show({
             title: "How Many?",
             items: [
-                this.simpledata.numbers,
-                this.simpledata.measurements,
-                this.simpledata.fruits,
-                this.simpledata.planets
+                this.jsonData.numbers,
+                this.jsonData.measurements,
+                this.jsonData.fruits,
+                this.jsonData.planets
             ],
             wrapWheelText: true
         }).then(function (result) {
-            _this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description + ' ' + result[2].description + ' ' + result[3].description;
+            console.log('*******result:' + JSON.stringify(result));
+            _this.selected = result[0].description + ' ' + result[1].description + ' ' + result[2].description + ' ' + result[3].description;
         }, function (err) { return console.log('Error occurred while getting result: ', err); });
     };
     HomePage.prototype.selectQuanity = function () {
@@ -55728,12 +55781,12 @@ var HomePage = (function () {
         this.selector.show({
             title: "How Many?",
             items: [
-                this.simpledata.numbers,
-                this.simpledata.measurements
+                this.jsonData.numbers,
+                this.jsonData.measurements
             ],
             wrapWheelText: true
         }).then(function (result) {
-            _this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description;
+            _this.selected = result[0].description + ' ' + result[1].description;
         }, function (err) { return console.log('Error occurred while getting result: ', err); });
     };
     HomePage.prototype.selectWithDefaultValues = function () {
@@ -55741,40 +55794,29 @@ var HomePage = (function () {
         this.selector.show({
             title: "Default selected values should be: 3 Grapefruit",
             items: [
-                this.simpledata.numbers,
-                this.simpledata.fruits
+                this.jsonData.numbers,
+                this.jsonData.fruits
             ],
             wrapWheelText: true,
             defaultItems: [
-                this.simpledata.numbers[2],
-                this.simpledata.fruits[4]
+                this.jsonData.numbers[2],
+                this.jsonData.fruits[4]
             ]
         }).then(function (result) {
-            _this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description;
-        }, function (err) { return console.log('Error occurred while getting result: ', err); });
-    };
-    HomePage.prototype.selectDefaultValuesDoNotExist = function () {
-        var _this = this;
-        this.selector.show({
-            title: "Default selected values should be: 1 Apple",
-            items: [
-                this.simpledata.numbers,
-                this.simpledata.fruits
-            ],
-        }).then(function (result) {
-            _this.selected = 'Selected: ' + result[0].description + ' ' + result[1].description;
+            _this.selected = result[0].description + ' ' + result[1].description;
         }, function (err) { return console.log('Error occurred while getting result: ', err); });
     };
     return HomePage;
 }());
 HomePage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Ionic2 Wheel Selector Example\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <p>{{selected}}</p>\n  <ion-list>\n    <ion-item><button ion-button (click)="simpleFruit()">Fruit</button></ion-item>\n    <ion-item><button ion-button (click)="selectNumber()">Number</button></ion-item>\n    <ion-item><button ion-button (click)="selectFruitQuantity()">Fruit quantity</button></ion-item>\n    <ion-item><button ion-button (click)="selectFruitQuantityFromPlanet()">Fruit quantity from planet</button></ion-item>\n    <ion-item><button ion-button (click)="selectQuanity()">Quantity</button></ion-item>\n    <ion-item><button ion-button (click)="selectWithDefaultValues()">Default values</button></ion-item>\n    <ion-item><button ion-button (click)="selectDefaultValuesDoNotExist()">Default values doe not exist</button></ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/,
+        selector: 'page-home',template:/*ion-inline-start:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Ionic2 Wheel Selector Example\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-12><span class="selected-tag">Selected:</span> <span class="selected">{{selected}}</span></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-6><button ion-button round outline (click)="simpleFruit()">Fruit</button></ion-col>\n      <ion-col col-6><button ion-button round outline (click)="selectNumber()">Number</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-6><button ion-button round outline (click)="selectFruitQuantity()">Fruit quantity</button></ion-col>\n      <ion-col col-6><button ion-button round outline (click)="selectFruitQuantityFromPlanet()">Fruit quantity from planet</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-6><button ion-button round outline (click)="selectQuanity()">Quantity</button></ion-col>\n      <ion-col col-6><button ion-button round outline (click)="selectWithDefaultValues()">Default values</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-6><button ion-button round outline (click)="selectNames()">Names</button></ion-col>\n      <ion-col col-6><button ion-button round outline (click)="selectUuids()">UUID\'s</button></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>'/*ion-inline-end:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */]]
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */]) === "function" && _b || Object])
 ], HomePage);
 
+var _a, _b;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -100970,54 +101012,95 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * ...
  *
  * let jsonData = {
- *     numbers: [
- *      { description: "1" },
- *       { description: "2" },
- *       { description: "3" }
- *     ],
- *     fruits: [
- *       { description: "Apple" },
- *       { description: "Banana" },
- *       { description: "Tangerine" }
- *     ],
- *   };
+ *   numbers: [
+ *    { description: "1" },
+ *     { description: "2" },
+ *     { description: "3" }
+ *   ],
+ *   fruits: [
+ *     { description: "Apple" },
+ *     { description: "Banana" },
+ *     { description: "Tangerine" }
+ *   ],
+ *   firstNames: [
+ *     { name: "Fred", id: '1' },
+ *     { name: "Jane", id: '2' },
+ *     { name: "Bob", id: '3' },
+ *     { name: "Earl", id: '4' },
+ *     { name: "Eunice", id: '5' }
+ *   ],
+ *   lastNames: [
+ *     { name: "Johnson", id: '100' },
+ *     { name: "Doe", id: '101' },
+ *     { name: "Kinishiwa", id: '102' },
+ *     { name: "Gordon", id: '103' },
+ *     { name: "Smith", id: '104' }
+ *   ]
+ * };
  *
- *   //use most of the default values
- *   this.selector.show({
- *     title: "Select some Fruit",
- *     items: [
- *       jsonData.numbers,
- *       jsonData.fruits
- *     ]
- *   }).then(
- *     result => {
- *       console.log('Selected: ' + result[0].description + ' at index: ' + result[0].index
- *         + ' and ' + result[1].description + ' at index: ' + result[1].index);
- *     },
- *     err => console.log('Error occurred while getting result: ', err)
- *     );
+ * ...
  *
- *   ...
+ * //basic number selection, index is always returned in the result
+ *  selectANumber() {
+ *    this.selector.show({
+ *      title: "How Many?",
+ *      items: [
+ *        this.jsonData.numbers
+ *      ],
+ *    }).then(
+ *      result => {
+ *        console.log(result[0].description + ' at index: ' + result[0].index);
+ *      },
+ *      err => console.log('Error occurred while getting result: ', err)
+ *      );
+ *  }
  *
- *   //set some initial default values to display: "2", "Tangerine"
- *   this.selector.show({
- *     title: "Select some Fruit",
- *     items: [
- *       jsonData.numbers,
- *       jsonData.fruits
- *     ],
- *     defaultItems: [
- *       jsonData.numbers[1],
- *       jsonData.fruits[2]
- *     ]
- *   }).then(
- *     result => {
- *       console.log('Selected: ' + result[0].description + ' at index: ' + result[0].index
- *         + ' and ' + result[1].description + ' at index: ' + result[1].index);
- *     },
- *     err => console.log('Error occurred while getting result: ', err)
- *     );
+ *  ...
  *
+ *  //basic selection, setting initial displayed default values: '3' 'Banana'
+ *  selectFruit() {
+ *    this.selector.show({
+ *      title: "How Much?",
+ *      items: [
+ *        this.jsonData.numbers, this.jsonData.fruits
+ *      ],
+ *      positiveButtonText: "Ok",
+ *      negativeButtonText: "Nope",
+ *      defaultItems: [
+ *        this.jsonData.numbers[2], // '3'
+ *        this.jsonData.fruits[3] // 'Banana'
+ *      ]
+ *    }).then(
+ *      result => {
+ *        console.log(result[0].description + ' ' + result[1].description);
+ *      },
+ *      err => console.log('Error occurred while getting result: ' + JSON.stringify(err))
+ *      );
+ *  }
+ *
+ *  ...
+ *
+ *  //more complex as overrides which key to display
+ *  //then retrieve properties from original data
+ *  selectNamesUsingDisplayKey() {
+ *    this.selector.show({
+ *      title: "Who?",
+ *      items: [
+ *        this.jsonData.firstNames, this.jsonData.lastNames
+ *      ],
+ *      displayKey: 'name',
+ *      defaultItems: [
+ *        this.jsonData.firstNames[2],
+ *        this.jsonData.lastNames[3]
+ *      ]
+ *    }).then(
+ *      result => {
+ *        console.log(result[0].name + ' (id= ' + this.jsonData.firstNames[result[0].index].id + '), ' +
+ *          result[1].name + ' (id=' + this.jsonData.lastNames[result[1].index].id + ')');
+ *      },
+ *      err => console.log('Error occurred while getting result: ' + JSON.stringify(err))
+ *      );
+ *  }
  *
  * ```
  *

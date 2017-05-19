@@ -24665,3 +24665,12 @@ ion-navbar.toolbar {
     padding-top: calc(16px + 20px);
   }
 }
+
+page-home .selected-tag {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+page-home .selected {
+  font-size: 18px;
+}

@@ -35,9 +35,14 @@ Can use in Cordova or Ionic (v1 or v2) frameworks, calls native API's so no clun
 
 This plugin will work in Ionic v1 AND Ionic v2!
 
-Installation via command line (same for Ionic v1 and v2):
+Installation via command line Ionic v1:
 
 `cordova plugin add cordova-wheel-selector-plugin`
+
+
+Installation (and Docs) via command line Ionic v2:
+
+[https://ionicframework.com/docs/native/wheelselector-plugin/](https://ionicframework.com/docs/native/wheelselector-plugin/)
 
 
 # Usage
