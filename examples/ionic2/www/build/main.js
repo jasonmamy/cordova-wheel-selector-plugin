@@ -55689,7 +55689,330 @@ var HomePage = (function () {
                 { id: "c064fcb5-49e6-4976-bc60-c2eeda601f4b" }
             ],
         };
+        this.bugData = {
+            whole: [
+                {
+                    "id": "d26b63be-3772-11e7-b433-002522deb7b3",
+                    "amount": 0,
+                    "description": ""
+                },
+                {
+                    "id": "d26b7084-3772-11e7-b433-002522deb7b3",
+                    "amount": 1,
+                    "description": "1"
+                },
+                {
+                    "id": "d26b7c88-3772-11e7-b433-002522deb7b3",
+                    "amount": 2,
+                    "description": "2"
+                },
+                {
+                    "id": "d26b88bf-3772-11e7-b433-002522deb7b3",
+                    "amount": 3,
+                    "description": "3"
+                },
+                {
+                    "id": "d26b9682-3772-11e7-b433-002522deb7b3",
+                    "amount": 4,
+                    "description": "4"
+                },
+                {
+                    "id": "d26ba29b-3772-11e7-b433-002522deb7b3",
+                    "amount": 5,
+                    "description": "5"
+                },
+                {
+                    "id": "d26bade3-3772-11e7-b433-002522deb7b3",
+                    "amount": 6,
+                    "description": "6"
+                },
+                {
+                    "id": "d26bb968-3772-11e7-b433-002522deb7b3",
+                    "amount": 7,
+                    "description": "7"
+                },
+                {
+                    "id": "d26bd516-3772-11e7-b433-002522deb7b3",
+                    "amount": 8,
+                    "description": "8"
+                },
+                {
+                    "id": "d26be2d0-3772-11e7-b433-002522deb7b3",
+                    "amount": 9,
+                    "description": "9"
+                },
+                {
+                    "id": "d26bf288-3772-11e7-b433-002522deb7b3",
+                    "amount": 10,
+                    "description": "10"
+                },
+                {
+                    "id": "d26c0188-3772-11e7-b433-002522deb7b3",
+                    "amount": 11,
+                    "description": "11"
+                },
+                {
+                    "id": "d26d505b-3772-11e7-b433-002522deb7b3",
+                    "amount": 12,
+                    "description": "12"
+                },
+                {
+                    "id": "d26d5e99-3772-11e7-b433-002522deb7b3",
+                    "amount": 13,
+                    "description": "13"
+                },
+                {
+                    "id": "d26d6a94-3772-11e7-b433-002522deb7b3",
+                    "amount": 14,
+                    "description": "14"
+                },
+                {
+                    "id": "d26d775b-3772-11e7-b433-002522deb7b3",
+                    "amount": 15,
+                    "description": "15"
+                },
+                {
+                    "id": "d26d9149-3772-11e7-b433-002522deb7b3",
+                    "amount": 16,
+                    "description": "16"
+                },
+                {
+                    "id": "d26da088-3772-11e7-b433-002522deb7b3",
+                    "amount": 17,
+                    "description": "17"
+                },
+                {
+                    "id": "d26dae26-3772-11e7-b433-002522deb7b3",
+                    "amount": 18,
+                    "description": "18"
+                },
+                {
+                    "id": "d26dba49-3772-11e7-b433-002522deb7b3",
+                    "amount": 19,
+                    "description": "19"
+                },
+                {
+                    "id": "d26dc5fe-3772-11e7-b433-002522deb7b3",
+                    "amount": 20,
+                    "description": "20"
+                },
+                {
+                    "id": "d26dd18c-3772-11e7-b433-002522deb7b3",
+                    "amount": 21,
+                    "description": "21"
+                },
+                {
+                    "id": "d26ddddf-3772-11e7-b433-002522deb7b3",
+                    "amount": 22,
+                    "description": "22"
+                },
+                {
+                    "id": "d26de9b8-3772-11e7-b433-002522deb7b3",
+                    "amount": 23,
+                    "description": "23"
+                },
+                {
+                    "id": "d26df5f8-3772-11e7-b433-002522deb7b3",
+                    "amount": 24,
+                    "description": "24"
+                },
+                {
+                    "id": "d26e016d-3772-11e7-b433-002522deb7b3",
+                    "amount": 25,
+                    "description": "25"
+                },
+                {
+                    "id": "d26e0ca9-3772-11e7-b433-002522deb7b3",
+                    "amount": 26,
+                    "description": "26"
+                },
+                {
+                    "id": "d26e17b9-3772-11e7-b433-002522deb7b3",
+                    "amount": 27,
+                    "description": "27"
+                },
+                {
+                    "id": "d26e237c-3772-11e7-b433-002522deb7b3",
+                    "amount": 28,
+                    "description": "28"
+                },
+                {
+                    "id": "d26e2ee6-3772-11e7-b433-002522deb7b3",
+                    "amount": 29,
+                    "description": "29"
+                },
+                {
+                    "id": "d26e3b8d-3772-11e7-b433-002522deb7b3",
+                    "amount": 30,
+                    "description": "30"
+                },
+                {
+                    "id": "d26e4799-3772-11e7-b433-002522deb7b3",
+                    "amount": 31,
+                    "description": "31"
+                },
+                {
+                    "id": "d26e5339-3772-11e7-b433-002522deb7b3",
+                    "amount": 32,
+                    "description": "32"
+                },
+                {
+                    "id": "d26e5f65-3772-11e7-b433-002522deb7b3",
+                    "amount": 33,
+                    "description": "33"
+                },
+                {
+                    "id": "d26e6b8a-3772-11e7-b433-002522deb7b3",
+                    "amount": 34,
+                    "description": "34"
+                },
+                {
+                    "id": "d26e77f5-3772-11e7-b433-002522deb7b3",
+                    "amount": 35,
+                    "description": "35"
+                },
+                {
+                    "id": "d26e83e0-3772-11e7-b433-002522deb7b3",
+                    "amount": 36,
+                    "description": "36"
+                },
+                {
+                    "id": "d26e98b9-3772-11e7-b433-002522deb7b3",
+                    "amount": 37,
+                    "description": "37"
+                },
+                {
+                    "id": "d26ea81b-3772-11e7-b433-002522deb7b3",
+                    "amount": 38,
+                    "description": "38"
+                },
+                {
+                    "id": "d26ec353-3772-11e7-b433-002522deb7b3",
+                    "amount": 39,
+                    "description": "39"
+                },
+                {
+                    "id": "d26ed56c-3772-11e7-b433-002522deb7b3",
+                    "amount": 40,
+                    "description": "40"
+                },
+                {
+                    "id": "d26ee28d-3772-11e7-b433-002522deb7b3",
+                    "amount": 41,
+                    "description": "41"
+                },
+                {
+                    "id": "d26eee76-3772-11e7-b433-002522deb7b3",
+                    "amount": 42,
+                    "description": "42"
+                },
+                {
+                    "id": "d26efae3-3772-11e7-b433-002522deb7b3",
+                    "amount": 43,
+                    "description": "43"
+                },
+                {
+                    "id": "d26f0a3b-3772-11e7-b433-002522deb7b3",
+                    "amount": 44,
+                    "description": "44"
+                },
+                {
+                    "id": "d26f18c2-3772-11e7-b433-002522deb7b3",
+                    "amount": 45,
+                    "description": "45"
+                },
+                {
+                    "id": "d26f25c3-3772-11e7-b433-002522deb7b3",
+                    "amount": 46,
+                    "description": "46"
+                },
+                {
+                    "id": "d26f317c-3772-11e7-b433-002522deb7b3",
+                    "amount": 47,
+                    "description": "47"
+                },
+                {
+                    "id": "d26f3d70-3772-11e7-b433-002522deb7b3",
+                    "amount": 48,
+                    "description": "48"
+                },
+                {
+                    "id": "d26f498d-3772-11e7-b433-002522deb7b3",
+                    "amount": 49,
+                    "description": "49"
+                },
+                {
+                    "id": "d26f5cc1-3772-11e7-b433-002522deb7b3",
+                    "amount": 50,
+                    "description": "50"
+                }
+            ],
+            fracs: [
+                {
+                    "id": "d26ae985-3772-11e7-b433-002522deb7b3",
+                    "amount": 0,
+                    "description": ""
+                },
+                {
+                    "id": "d26afb11-3772-11e7-b433-002522deb7b3",
+                    "amount": 0.13,
+                    "description": "1/8"
+                },
+                {
+                    "id": "d26b1571-3772-11e7-b433-002522deb7b3",
+                    "amount": 0.25,
+                    "description": "1/4"
+                },
+                {
+                    "id": "d26b2527-3772-11e7-b433-002522deb7b3",
+                    "amount": 0.33,
+                    "description": "1/3"
+                },
+                {
+                    "id": "d26b3416-3772-11e7-b433-002522deb7b3",
+                    "amount": 0.5,
+                    "description": "1/2"
+                },
+                {
+                    "id": "d26b4741-3772-11e7-b433-002522deb7b3",
+                    "amount": 0.66,
+                    "description": "2/3"
+                },
+                {
+                    "id": "d26b56ce-3772-11e7-b433-002522deb7b3",
+                    "amount": 0.75,
+                    "description": "3/4"
+                }
+            ],
+            weights: [
+                {
+                    "description": "fillet",
+                    "weightId": "d4f4d8eb-3772-11e7-b433-002522deb7b3"
+                },
+                {
+                    "description": "oz",
+                    "weightId": "d4f4e405-3772-11e7-b433-002522deb7b3"
+                }
+            ]
+        };
     }
+    HomePage.prototype.maybeBug = function () {
+        var _this = this;
+        this.selector.show({
+            title: 'Bug?',
+            items: [
+                this.bugData.whole, this.bugData.fracs, this.bugData.weights
+            ],
+            // displayKey: 'name',
+            defaultItems: [
+                this.jsonData.firstNames[2],
+                this.jsonData.lastNames[3]
+            ]
+        }).then(function (result) {
+            _this.selected = result[0].name + ' (id= ' + _this.jsonData.firstNames[result[0].index].id + '), ' +
+                result[1].name + ' (id=' + _this.jsonData.lastNames[result[1].index].id + ')';
+        }, function (err) { return console.log('Error occurred while getting result: ' + JSON.stringify(err)); });
+    };
     //more complex as overrides which key to display
     //then retrieve properties from original data
     HomePage.prototype.selectNames = function () {
@@ -55810,13 +56133,12 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Ionic2 Wheel Selector Example\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-12><span class="selected-tag">Selected:</span> <span class="selected">{{selected}}</span></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-6><button ion-button round outline (click)="simpleFruit()">Fruit</button></ion-col>\n      <ion-col col-6><button ion-button round outline (click)="selectNumber()">Number</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-6><button ion-button round outline (click)="selectFruitQuantity()">Fruit quantity</button></ion-col>\n      <ion-col col-6><button ion-button round outline (click)="selectFruitQuantityFromPlanet()">Fruit quantity from planet</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-6><button ion-button round outline (click)="selectQuanity()">Quantity</button></ion-col>\n      <ion-col col-6><button ion-button round outline (click)="selectWithDefaultValues()">Default values</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-6><button ion-button round outline (click)="selectNames()">Names</button></ion-col>\n      <ion-col col-6><button ion-button round outline (click)="selectUuids()">UUID\'s</button></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>'/*ion-inline-end:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/,
+        selector: 'page-home',template:/*ion-inline-start:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Ionic2 Wheel Selector Example\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-12><span class="selected-tag">Selected:</span> <span class="selected">{{selected}}</span></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="simpleFruit()">Fruit</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectNumber()">Number</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="selectFruitQuantity()">Fruit quantity</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectFruitQuantityFromPlanet()">Fruit quantity from planet</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="selectQuanity()">Quantity</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectWithDefaultValues()">Default values</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="selectNames()">Names</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectUuids()">UUID\'s</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="maybeBug()">Bug?</button></ion-col>\n      <!--<ion-col col-6><button ion-button round outline (click)="selectUuids()">UUID\'s</button></ion-col>-->\n    </ion-row>\n  </ion-grid>\n</ion-content>'/*ion-inline-end:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */]])
 ], HomePage);
 
-var _a, _b;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -101051,7 +101373,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  *      result => {
  *        console.log(result[0].description + ' at index: ' + result[0].index);
  *      },
- *      err => console.log('Error occurred while getting result: ', err)
+ *      err => console.log('Error: ', err)
  *      );
  *  }
  *
@@ -101074,7 +101396,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  *      result => {
  *        console.log(result[0].description + ' ' + result[1].description);
  *      },
- *      err => console.log('Error occurred while getting result: ' + JSON.stringify(err))
+ *      err => console.log('Error: ' + JSON.stringify(err))
  *      );
  *  }
  *
@@ -101098,7 +101420,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  *        console.log(result[0].name + ' (id= ' + this.jsonData.firstNames[result[0].index].id + '), ' +
  *          result[1].name + ' (id=' + this.jsonData.lastNames[result[1].index].id + ')');
  *      },
- *      err => console.log('Error occurred while getting result: ' + JSON.stringify(err))
+ *      err => console.log('Error: ' + JSON.stringify(err))
  *      );
  *  }
  *

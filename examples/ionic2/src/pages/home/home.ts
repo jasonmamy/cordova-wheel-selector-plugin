@@ -170,7 +170,7 @@ export class HomePage {
       wrapWheelText: true
     }).then(
       result => {
-                console.log('*******result:' + JSON.stringify(result));
+        console.log('*******result:' + JSON.stringify(result));
 
         this.selected = result[0].description + ' ' + result[1].description + ' ' + result[2].description + ' ' + result[3].description;
       },
