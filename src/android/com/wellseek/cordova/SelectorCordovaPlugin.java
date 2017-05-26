@@ -211,7 +211,7 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
     }
 
     public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color) {
-
+        float myTextSize = 10;
         final int count = numberPicker.getChildCount();
         for (int i = 0; i < count; i++) {
             View child = numberPicker.getChildAt(i);
@@ -221,13 +221,13 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
                             .getDeclaredField("mSelectorWheelPaint");
                     selectorWheelPaintField.setAccessible(true);
                     ((Paint) selectorWheelPaintField.get(numberPicker)).setColor(color);
-
-                    //paint.TextSize =  TypedValue.ApplyDimension(complexUnitType, textSize, numberPicker.Resources.DisplayMetrics);
-
-                    //will bold the selection
-//                    ((Paint) selectorWheelPaintField.get(numberPicker)).setTypeface(Typeface.DEFAULT_BOLD);
-
                     ((EditText) child).setTextColor(color);
+
+                    //this setTextSize works, but given the 'mTextSize' variable is set in ctor
+                    //the initial values are small, once activated they get larger
+                    //https://android.googlesource.com/platform/frameworks/base.git/+/android-cts-4.2_r1/core/java/android/widget/NumberPicker.java
+                    //((Paint) selectorWheelPaintField.get(numberPicker)).setTextSize(48);
+
                     numberPicker.invalidate();
                     return true;
                 } catch (NoSuchFieldException e) {
