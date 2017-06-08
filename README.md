@@ -451,9 +451,11 @@ get latest ionic native
 
 Build ionic native
 
-`cd ionic-native`
-'npm install'
-'npm run build`
+```
+cd ionic-native
+npm install
+npm run build
+```
 
 The wrapper will then be at:
 `dist/@ionic-native/wheel-selector'
