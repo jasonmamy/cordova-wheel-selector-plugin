@@ -9,6 +9,7 @@ Can use in Cordova or Ionic (v1 or v2) frameworks, calls native API's so no clun
 - [Installation](#installation)
 - [Usage](#usage)
 	- [The options that can be set](#the-options-that-can-be-set)
+	- [The functions that can be called](#the-functions-that-can-be-called)
 - [Screenshots and Examples](#screenshots-and-examples)
 	- [Android](#android)
 	- [iOS](#ios)
@@ -25,11 +26,11 @@ Can use in Cordova or Ionic (v1 or v2) frameworks, calls native API's so no clun
 	- [Android](#android)
 	- [IOS](#ios)
 - [Notes:](#notes)
+	- [For ionic 2](#for-ionic-2)
 - [TODO](#todo)
 - [Credits](#credits)
 
 <!-- /TOC -->
-
 
 # Installation
 
@@ -440,6 +441,39 @@ increment version in `./package.json`
 `npm adduser`
 <Answer prompts for username, password, email if not already setup>
 `npm publish`
+
+## For ionic 2
+Since the ionic2 'wrapper' is in @ionic-native, but not released yet, have to go thru these steps:
+
+get latest ionic native
+
+`git clone https://github.com/ionic-team/ionic-native.git`
+
+Build ionic native
+
+`cd ionic-native`
+'npm install'
+'npm run build`
+
+The wrapper will then be at:
+`dist/@ionic-native/wheel-selector'
+
+To use in your project, copy the wrapper to your projects directory:
+
+node_modules/@ionic-native
+
+Where you can import like:
+
+```
+import { WheelSelector } from '@ionic-native/wheel-selector';
+
+@Component({
+  selector: '...',
+  templateUrl: '...',
+  providers: [..., WheelSelector, ...]
+})
+```
+
 
 # TODO
 * implement more of the ios portion
