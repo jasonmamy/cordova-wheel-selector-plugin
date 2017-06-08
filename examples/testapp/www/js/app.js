@@ -90,7 +90,6 @@ angular.module('starter', ['ionic'])
         }
     }
 
-
     $scope.selectWrapWheelText = function(toWrap) {
 
         if(toWrap.length == 0) {
@@ -113,7 +112,6 @@ angular.module('starter', ['ionic'])
           positiveButtonText: "Ok",
           negativeButtonText: "Cancel",
           theme: themeColor,
-          defaultValueIndexes: [2, 3],
           wrapWheelText: wrapWheelText
         }
         window.SelectorCordovaPlugin.showSelector(configSimple1, function(result) {
@@ -128,7 +126,6 @@ angular.module('starter', ['ionic'])
         alert('cordova-wheel-selector-plugin not available in browser, install and run on device!');
       }
     }
-
 
     $scope.selectNumber = function() {
 
@@ -216,7 +213,6 @@ angular.module('starter', ['ionic'])
       }
     }
 
-
     $scope.selectQuantityComplex = function() {
 
       if (window.SelectorCordovaPlugin) {
@@ -275,7 +271,6 @@ angular.module('starter', ['ionic'])
       }
     }
 
-
     $scope.selectFruitWithDefaultValuesThatDontExist = function() {
 
       if (window.SelectorCordovaPlugin) {
@@ -304,6 +299,4 @@ angular.module('starter', ['ionic'])
         alert('cordova-wheel-selector-plugin not available in browser, install and run on device!');
       }
     }
-
-
 })
