@@ -59,7 +59,8 @@ var config = {
         //also the result has an index which refers to the ordering (see examples below)
     ],
     defaultItems: [
-        //which items to display, example ["2","Apple"] (if items.length is 2 for instance)
+        //which items to display, example [{"description" :"2"},{"description" :"Apple"}] (if items.length is 2 for instance)
+        //alternate preferred way would be (avoid duplicate json): [items[index_for_number_2],items[index_for_apple]] 
     ],
     positiveButtonText: "Yes",
     negativeButtonText: "No",
