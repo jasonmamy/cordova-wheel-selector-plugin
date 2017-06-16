@@ -261,6 +261,33 @@ Produces:
 
 <img src="examples/images/multiple_items.png" alt="measurements" width="400" height="300">
 
+
+## Default items
+Using config:
+
+```js
+var config = {
+    title: "Select something",
+    items:[
+        [data.numbers],
+        [data.fruits]
+    ],
+    defaultItems: [data.numbers[1], data.fruits[2]]
+};
+
+```
+
+Will auto select the number "2" and fruit "Pear" (just reference the items in the json array).  It could also be done as:
+
+
+```
+...
+defaultItems: [{"description":"2"}, {"description":"Pear"}]
+...
+```
+
+But referencing the array is safer (in case a description item isn't in the array), and also avoids duplication of code.
+
 ## More complicated usage
 
 In some cases (i.e. retrieving data from a server API call), you may get back differing JSON, in that case you can specify which *key* to display in the selector using the *displayKey* in the config, for example if we wish to display the *text* fields in the corresponding JSON from the following data set:
