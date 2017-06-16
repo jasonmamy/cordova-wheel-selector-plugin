@@ -20,6 +20,7 @@ Can use in Cordova or Ionic (v1 or v2) frameworks, calls native API's so no clun
 		- [Ouputs:](#ouputs)
 	- [2 items dark theme](#2-items-dark-theme)
 	- [Many items dark theme, with 'wheel wrapping'](#many-items-dark-theme-with-wheel-wrapping)
+	- [Default items](#default-items)
 	- [More complicated usage](#more-complicated-usage)
 - [Ionic 2](#ionic-2)
 - [Development](#development)
@@ -60,7 +61,7 @@ var config = {
     ],
     defaultItems: [
         //which items to display, example [{"description" :"2"},{"description" :"Apple"}] (if items.length is 2 for instance)
-        //alternate preferred way would be (avoid duplicate json): [items[index_for_number_2],items[index_for_apple]] 
+        //alternate preferred way would be (avoid duplicate json): [items[index_for_number_2],items[index_for_apple]]
     ],
     positiveButtonText: "Yes",
     negativeButtonText: "No",
