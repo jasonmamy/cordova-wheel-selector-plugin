@@ -7,8 +7,9 @@ import { WheelSelector } from '@ionic-native/wheel-selector';
   templateUrl: 'home.html',
   providers: [WheelSelector]
 })
-export class HomePage {
 
+
+export class HomePage {
   jsonData = {
     numbers: [
       { description: "1" },
@@ -83,8 +84,8 @@ export class HomePage {
       ],
       displayKey: 'name',
       defaultItems: [
-        this.jsonData.firstNames[2],
-        this.jsonData.lastNames[3]
+        {index: 0, value: this.jsonData.firstNames[2].name},
+        {index: 1, value: this.jsonData.lastNames[3].name}
       ]
     }).then(
       result => {
@@ -135,7 +136,6 @@ export class HomePage {
       ],
     }).then(
       result => {
-        console.log('*******result:' + JSON.stringify(result));
         this.selected = result[0].description;
       },
       err => console.log('Error occurred while getting result: ', err)
@@ -170,8 +170,6 @@ export class HomePage {
       wrapWheelText: true
     }).then(
       result => {
-        console.log('*******result:' + JSON.stringify(result));
-
         this.selected = result[0].description + ' ' + result[1].description + ' ' + result[2].description + ' ' + result[3].description;
       },
       err => console.log('Error occurred while getting result: ', err)
@@ -194,7 +192,6 @@ export class HomePage {
   }
 
   selectWithDefaultValues() {
-
     this.selector.show({
       title: "Default selected values should be: 3 Grapefruit",
       items: [
@@ -203,9 +200,29 @@ export class HomePage {
       ],
       wrapWheelText: true,
       defaultItems: [
-        this.jsonData.numbers[2],
-        this.jsonData.fruits[4]
-      ]
+        {index:0 , value: "3"},
+        {index:1 , value: "Grapefruit"}
+        ]
+    }).then(
+      result => {
+        this.selected = result[0].description + ' ' + result[1].description;
+      },
+      err => console.log('Error occurred while getting result: ', err)
+      );
+  }
+
+  selectDefaultValuesThatDontExist(){
+  this.selector.show({
+      title: "Default selected values should be: 1 Apple",
+      items: [
+        this.jsonData.numbers,
+        this.jsonData.fruits
+      ],
+      wrapWheelText: true,
+      defaultItems: [
+        {index:0 , value: "50"},
+        {index:1 , value: "Kiwi"}
+        ]
     }).then(
       result => {
         this.selected = result[0].description + ' ' + result[1].description;

@@ -59,10 +59,9 @@ var config = {
         //the order of the items dictates the order they are displayed in the UI
         //also the result has an index which refers to the ordering (see examples below)
     ],
-    defaultItems: [
-        //which items to display, example [{"description" :"2"},{"description" :"Apple"}] (if items.length is 2 for instance)
-        //alternate preferred way would be (avoid duplicate json): [items[index_for_number_2],items[index_for_apple]]
-    ],
+    defaultItems: {
+        //which items to display, example [{"0" :"2"},{"1" :"Apple"}] (index:value}
+    },
     positiveButtonText: "Yes",
     negativeButtonText: "No",
     theme: "light | dark",  //lighter or darker theme, not available on iOS yet
@@ -273,7 +272,7 @@ var config = {
         [data.numbers],
         [data.fruits]
     ],
-    defaultItems: [data.numbers[1], data.fruits[2]]
+    defaultItems: {"0":"2", "1":"Pear"} //{index:value, index:value ...}
 };
 
 ```
@@ -283,7 +282,7 @@ Will auto select the number "2" and fruit "Pear" (just reference the items in th
 
 ```
 ...
-defaultItems: [{"description":"2"}, {"description":"Pear"}]
+defaultItems: {"0":data.numbers[1].value, "1":data.numbers[2]}
 ...
 ```
 

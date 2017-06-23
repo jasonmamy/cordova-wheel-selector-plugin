@@ -246,7 +246,7 @@ angular.module('starter', ['ionic'])
 
       if (window.SelectorCordovaPlugin) {
         var configSimple1 = {
-          title: "Default values should be: 3 Pear ",
+          title: "new Default values should be: 3 Pear ",
           items: [
             [testdata.simpledata.numbers],
             [testdata.simpledata.fruits]
@@ -254,7 +254,7 @@ angular.module('starter', ['ionic'])
           positiveButtonText: "Ok",
           negativeButtonText: "Cancel",
           theme: themeColor,
-          defaultItems: ["3", "Pear"],
+          defaultItems: {"0": "3", "1": "Pear"}, //0=index, 3=value, 1=index, Pear=value
           wrapWheelText: wrapWheelText
         }
 
@@ -283,7 +283,7 @@ angular.module('starter', ['ionic'])
           positiveButtonText: "Ok",
           negativeButtonText: "Cancel",
           theme: themeColor,
-          defaultItems: ["22", "Apricot"], //if not found default to 1st items in list
+          defaultItems: {"0": "22", "1": "Apricot"}, //if not found default to 1st items in list
           wrapWheelText: wrapWheelText
         }
 

@@ -2,7 +2,6 @@ var PLUGIN_NAME = 'SelectorCordovaPlugin';
 var SelectorCordovaPlugin = function() {};
 
 SelectorCordovaPlugin.prototype.showSelector = function(options, success_callback, error_callback) {
-
   options || (options = {});
   var scope = options.scope || null;
 
@@ -71,13 +70,7 @@ SelectorCordovaPlugin.prototype.show = function(options, success_callback, error
     }
 
     var displayList = Create2DArray(options.items.length);
-
     var defaultItemsList = {};
-
-    console.log('default items is:' + JSON.stringify(options.defaultItems));
-    if (options.defaultItems != undefined && options.defaultItems.length > 0) {
-      defaultItemsList = [options.defaultItems.length];
-    }
 
     var config = {
       title: options.title || ' ',
@@ -98,12 +91,11 @@ SelectorCordovaPlugin.prototype.show = function(options, success_callback, error
       }
     }
 
-    if (options.defaultItems != undefined && options.defaultItems.length > 0) {
+    if (options.defaultItems != null && options.defaultItems.length > 0) {
       for (i in options.defaultItems) {
-        defaultItemsList[i] = options.defaultItems[i][config.displayKey]
+        defaultItemsList[options.defaultItems[i].index] = options.defaultItems[i].value;
       }
     }
-
 
     var _success_callback = function() {
         if(typeof success_callback == 'function') {

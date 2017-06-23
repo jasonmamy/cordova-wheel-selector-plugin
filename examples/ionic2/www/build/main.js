@@ -55701,8 +55701,8 @@ var HomePage = (function () {
             ],
             displayKey: 'name',
             defaultItems: [
-                this.jsonData.firstNames[2],
-                this.jsonData.lastNames[3]
+                { index: 0, value: this.jsonData.firstNames[2].name },
+                { index: 1, value: this.jsonData.lastNames[3].name }
             ]
         }).then(function (result) {
             _this.selected = result[0].name + ' (id= ' + _this.jsonData.firstNames[result[0].index].id + '), ' +
@@ -55743,7 +55743,6 @@ var HomePage = (function () {
                 this.jsonData.numbers
             ],
         }).then(function (result) {
-            console.log('*******result:' + JSON.stringify(result));
             _this.selected = result[0].description;
         }, function (err) { return console.log('Error occurred while getting result: ', err); });
     };
@@ -55772,7 +55771,6 @@ var HomePage = (function () {
             ],
             wrapWheelText: true
         }).then(function (result) {
-            console.log('*******result:' + JSON.stringify(result));
             _this.selected = result[0].description + ' ' + result[1].description + ' ' + result[2].description + ' ' + result[3].description;
         }, function (err) { return console.log('Error occurred while getting result: ', err); });
     };
@@ -55799,8 +55797,25 @@ var HomePage = (function () {
             ],
             wrapWheelText: true,
             defaultItems: [
-                this.jsonData.numbers[2],
-                this.jsonData.fruits[4]
+                { index: 0, value: "3" },
+                { index: 1, value: "Grapefruit" }
+            ]
+        }).then(function (result) {
+            _this.selected = result[0].description + ' ' + result[1].description;
+        }, function (err) { return console.log('Error occurred while getting result: ', err); });
+    };
+    HomePage.prototype.selectDefaultValuesThatDontExist = function () {
+        var _this = this;
+        this.selector.show({
+            title: "Default selected values should be: 1 Apple",
+            items: [
+                this.jsonData.numbers,
+                this.jsonData.fruits
+            ],
+            wrapWheelText: true,
+            defaultItems: [
+                { index: 0, value: "50" },
+                { index: 1, value: "Kiwi" }
             ]
         }).then(function (result) {
             _this.selected = result[0].description + ' ' + result[1].description;
@@ -55810,7 +55825,7 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Ionic2 Wheel Selector Example\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-12><span class="selected-tag">Selected:</span> <span class="selected">{{selected}}</span></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="simpleFruit()">Fruit</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectNumber()">Number</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="selectFruitQuantity()">Fruit quantity</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectFruitQuantityFromPlanet()">Fruit quantity from planet</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="selectQuanity()">Quantity</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectWithDefaultValues()">Default values</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="selectNames()">Names</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectUuids()">UUID\'s</button></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>'/*ion-inline-end:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/,
+        selector: 'page-home',template:/*ion-inline-start:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Ionic2 Wheel Selector Example\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-12><span class="selected-tag">Selected:</span> <span class="selected">{{selected}}</span></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="simpleFruit()">Fruit</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectNumber()">Number</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="selectFruitQuantity()">Fruit quantity</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectFruitQuantityFromPlanet()">Fruit quantity from planet</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="selectQuanity()">Quantity</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectWithDefaultValues()">Default values</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="selectNames()">Names</button></ion-col>\n      <ion-col><button ion-button round outline (click)="selectUuids()">UUID\'s</button></ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col><button ion-button round outline (click)="selectDefaultValuesThatDontExist()">DefaultValuesThatDontExist</button></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>'/*ion-inline-end:"/home/jasona/git/cordova-wheel-selector-plugin/examples/ionic2/src/pages/home/home.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */]]
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_wheel_selector__["a" /* WheelSelector */]])
@@ -101066,9 +101081,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  *      positiveButtonText: "Ok",
  *      negativeButtonText: "Nope",
  *      defaultItems: [
- *        this.jsonData.numbers[2], // '3'
- *        this.jsonData.fruits[3] // 'Banana'
- *      ]
+ *  	  {index:0, value: this.jsonData.numbers[2].description},
+ *  	  {index: 1, value: this.jsonData.fruits[3].description}
+ *  	]
  *    }).then(
  *      result => {
  *        console.log(result[0].description + ' ' + result[1].description);
@@ -101089,8 +101104,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  *      ],
  *      displayKey: 'name',
  *      defaultItems: [
- *        this.jsonData.firstNames[2],
- *        this.jsonData.lastNames[3]
+ *  	  {index:0, value: this.jsonData.firstNames[2].name},
+ *        {index: 0, value: this.jsonData.lastNames[3].name}
  *      ]
  *    }).then(
  *      result => {
