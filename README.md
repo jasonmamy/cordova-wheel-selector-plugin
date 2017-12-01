@@ -159,8 +159,8 @@ Using config:
 var config = {
     title: "How Many Fruit?",
     items:[
-        data.numbers,
-        data.fruit
+        [data.numbers],
+        [data.fruits]
     ],
     positiveButtonText: "Done",
     negativeButtonText: "Cancel"
