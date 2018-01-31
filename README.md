@@ -19,7 +19,7 @@ Can use in Cordova or Ionic (v1 or v2) frameworks, calls native API's so no clun
 		- [Results:](#results)
 		- [Ouputs:](#ouputs)
 	- [2 items dark theme](#2-items-dark-theme)
-	- [Many items dark theme, with 'wheel wrapping'](#many-items-dark-theme-with-wheel-wrapping)
+	- [Many items white theme, with 'wheel wrapping'](#many-items-white-theme-with-wheel-wrapping)
 	- [Default items](#default-items)
 	- [More complicated usage](#more-complicated-usage)
 - [Ionic 2](#ionic-2)
@@ -157,27 +157,6 @@ Using config:
 
 ```js
 var config = {
-    title: "How Many Fruit?",
-    items:[
-        [data.numbers],
-        [data.fruits]
-    ],
-    positiveButtonText: "Done",
-    negativeButtonText: "Cancel"
-};
-
-```
-Produces:
-
-
-<img src="examples/images/fruit.png" alt="fruits" width="400" height="300">
-
-
-## 2 items white theme
-Using config:
-
-```js
-var config = {
     title: "Select a quantity",
     items:[
         data.numbers
@@ -189,9 +168,28 @@ var config = {
 ```
 Produces:
 
-
 <img src="examples/images/single_items.png" alt="single items" width="400" height="300">
 
+
+## 2 items white theme
+Using config:
+
+```js
+var config = {
+    title: "How Many Fruit?",
+    items:[
+        [data.numbers],
+        [data.fruits]
+    ],
+    positiveButtonText: "Yes",
+    negativeButtonText: "No"
+};
+
+```
+Produces:
+
+
+<img src="examples/images/fruit.png" alt="fruits" width="400" height="300">
 
 ### Results:
 ```js
@@ -238,7 +236,7 @@ Produces:
 <img src="examples/images/quantity_dark_theme.png" alt="measurements" width="400" height="300">
 
 
-## Many items dark theme, with 'wheel wrapping'
+## Many items white theme, with 'wheel wrapping'
 Using config:
 
 ```js
