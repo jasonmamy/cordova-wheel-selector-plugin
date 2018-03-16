@@ -22,12 +22,10 @@ Can use in Cordova or Ionic (v1 or v2) frameworks, calls native API's so no clun
 	- [Many items white theme, with 'wheel wrapping'](#many-items-white-theme-with-wheel-wrapping)
 	- [Default items](#default-items)
 	- [More complicated usage](#more-complicated-usage)
-- [Ionic 2](#ionic-2)
+- [Ionic](#ionic)
 - [Development](#development)
 	- [Android](#android)
 	- [IOS](#ios)
-- [Notes:](#notes)
-	- [For ionic 2](#for-ionic-2)
 - [TODO](#todo)
 - [Credits](#credits)
 
@@ -369,33 +367,8 @@ Which outputs:
 Note, in the `result` return value, there is `index` which is the index in the original JSON to the item the user selected (this allows for *reverse-lookups*).    
 
 
-# Ionic 2
-
-To use this plugin in Ionic 2 requires minimal changes, install as usual:
-
-`cordova plugin add cordova-wheel-selector-plugin`
-
-(note, NO need for ANY other configuration/injection/etc)
-
-Then Typescript will complain about this line:
-
-`window.SelectorCordovaPlugin.showSelector(config, function(result) {...`
-
-Reference this line in this way instead and TypeScript will not complain:
-
-```
-let self = this;
-(<any>window).SelectorCordovaPlugin.showSelector(config, function(result) {
-
-  // use self instead of this inside here to access TypeScript methods/properties
-
-}
-
-```
-
-And you're done!
-
-
+# Ionic
+To use this plugin together with Ionic you can use the offical [@ionic-native/wheel-selector](https://ionicframework.com/docs/native/wheelselector-plugin/) plugin wrapper
 
 # Development
 
@@ -467,40 +440,6 @@ increment version in `./package.json`
 `npm adduser`
 <Answer prompts for username, password, email if not already setup>
 `npm publish`
-
-## For ionic 2
-Since the ionic2 'wrapper' is in @ionic-native, but not released yet, have to go thru these steps:
-
-get latest ionic native
-
-`git clone https://github.com/ionic-team/ionic-native.git`
-
-Build ionic native
-
-```
-cd ionic-native
-npm install
-npm run build
-```
-
-The wrapper will then be at:
-`dist/@ionic-native/wheel-selector'
-
-To use in your project, copy the wrapper to your projects directory:
-
-node_modules/@ionic-native
-
-Where you can import like:
-
-```
-import { WheelSelector } from '@ionic-native/wheel-selector';
-
-@Component({
-  selector: '...',
-  templateUrl: '...',
-  providers: [..., WheelSelector, ...]
-})
-```
 
 
 # TODO
