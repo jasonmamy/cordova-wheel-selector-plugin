@@ -192,7 +192,7 @@ typedef NS_ENUM(NSInteger, SelectorResultType) {
   [self.webView.superview bringSubviewToFront:self.modalView];
 
   // Present the view animated
-  [UIView animateWithDuration:0.5
+  [UIView animateWithDuration:0.3
                         delay:0.0
                       options: 0
                    animations:^{
@@ -267,7 +267,7 @@ typedef NS_ENUM(NSInteger, SelectorResultType) {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
 
   // Hide the view animated
-  [UIView animateWithDuration:0.5
+  [UIView animateWithDuration:0.3
                         delay:0.0
                       options: 0
                    animations:^{
