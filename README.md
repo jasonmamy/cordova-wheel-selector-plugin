@@ -268,7 +268,7 @@ var config = {
         data.numbers,
         data.fruits
     ],
-    defaultItems: {"0":"2", "1":"Pear"} //{index:value, index:value ...}
+    defaultItems: [{"0":"2", "1":"Pear"}] //{index:value, index:value ...}
 };
 
 ```
@@ -278,7 +278,7 @@ Will auto select the number "2" and fruit "Pear" (just reference the items in th
 
 ```
 ...
-defaultItems: {"0":data.numbers[1].value, "1":data.numbers[2]}
+defaultItems: [{"0":data.numbers[1].value, "1":data.numbers[2]}]
 ...
 ```
 
