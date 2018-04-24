@@ -268,21 +268,19 @@ var config = {
         data.numbers,
         data.fruits
     ],
-    defaultItems: [{"0":"2", "1":"Pear"}] //{index:value, index:value ...}
+    defaultItems: [
+        //the number '2'
+        {index:0, value: data.numbers[2]},
+
+        //the value 'Pear'
+        {index:0, value: data.fruits[2]} 
+    ]
 };
 
 ```
 
-Will auto select the number "2" and fruit "Pear" (just reference the items in the json array).  It could also be done as:
+Will auto select the number "2" and fruit "Pear" (just reference the items in the json array).  It could also be hard-coded to the values '2' and 'Pear' but referencing the array is safer (in case a description item isn't in the array), and also avoids duplication of code.
 
-
-```
-...
-defaultItems: [{"0":data.numbers[1].value, "1":data.numbers[2]}]
-...
-```
-
-But referencing the array is safer (in case a description item isn't in the array), and also avoids duplication of code.
 
 ## More complicated usage
 
