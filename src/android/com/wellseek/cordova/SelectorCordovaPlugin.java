@@ -283,6 +283,9 @@ class PickerView {
 
             picker.setFocusableInTouchMode(true);
 
+            //turn off soft keyboard
+            picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            
             setNumberPickerTextColor(picker, SELECTOR_THEME.getNumberPickerTextColor());
         }
 
