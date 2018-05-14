@@ -273,13 +273,15 @@ var config = {
         {index:0, value: data.numbers[2]},
 
         //the value 'Pear'
-        {index:0, value: data.fruits[2]} 
+        {index:1, value: data.fruits[2]} 
     ]
 };
 
 ```
 
 Will auto select the number "2" and fruit "Pear" (just reference the items in the json array).  It could also be hard-coded to the values '2' and 'Pear' but referencing the array is safer (in case a description item isn't in the array), and also avoids duplication of code.
+
+The index defines which list the default item applies to. In the example the list at index 0 in the items array is `data.numbers`, and the list at index 1 `data.fruits`.
 
 
 ## More complicated usage
