@@ -157,7 +157,7 @@ Using config:
 var config = {
     title: "Select a quantity",
     items:[
-        [data.numbers]
+        data.numbers
     ],
     positiveButtonText: "Done",
     negativeButtonText: "Cancel"
@@ -176,8 +176,8 @@ Using config:
 var config = {
     title: "How Many Fruit?",
     items:[
-        [data.numbers],
-        [data.fruits]
+        data.numbers,
+        data.fruits
     ],
     positiveButtonText: "Yes",
     negativeButtonText: "No"
