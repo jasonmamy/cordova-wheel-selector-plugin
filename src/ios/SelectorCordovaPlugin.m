@@ -77,7 +77,7 @@ typedef NS_ENUM(NSInteger, SelectorResultType) {
 
 - (UIView *)createPickerView {
   // Initialize container view
-  UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewSize.width, 260)];
+  UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, [self getSafeBottomPadding], self.viewSize.width, 260 + [self getSafeBottomPadding])];
   if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
     [view setBackgroundColor:[UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0]];
   }
@@ -87,7 +87,7 @@ typedef NS_ENUM(NSInteger, SelectorResultType) {
   [view addSubview:toolbar];
 
   // Initialize picker
-  _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 40.0f, self.viewSize.width, 216)];
+  _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 40.0f, self.viewSize.width, 260 - [self getSafeBottomPadding])];
   [_pickerView setShowsSelectionIndicator:YES];
   [_pickerView setDelegate:self];
 
@@ -180,8 +180,8 @@ typedef NS_ENUM(NSInteger, SelectorResultType) {
                                                name:UIApplicationWillChangeStatusBarOrientationNotification
                                              object:nil];
 
-  CGRect viewFrame = CGRectMake(0, 0, self.viewSize.width, self.viewSize.height);
-  [view setFrame:CGRectMake(0, viewFrame.size.height, viewFrame.size.width, 260)];
+  CGRect viewFrame = CGRectMake(0, [self getSafeBottomPadding], self.viewSize.width, self.viewSize.height);
+  [view setFrame:CGRectMake(0, viewFrame.size.height, viewFrame.size.width, 260 + [self getSafeBottomPadding])];
 
   _modalView = [[UIView alloc] initWithFrame:viewFrame];
   [_modalView setBackgroundColor:[UIColor clearColor]];
@@ -196,7 +196,7 @@ typedef NS_ENUM(NSInteger, SelectorResultType) {
                         delay:0.0
                       options: 0
                    animations:^{
-                     [_modalView.subviews[0] setFrame: CGRectOffset(viewFrame, 0, viewFrame.size.height - 260)];;
+                     [_modalView.subviews[0] setFrame: CGRectOffset(viewFrame, 0, viewFrame.size.height - (260 + [self getSafeBottomPadding]) - [self getSafeBottomPadding])];
                      [_modalView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
                    }
                    completion:nil];
@@ -344,9 +344,18 @@ typedef NS_ENUM(NSInteger, SelectorResultType) {
 #endif
 }
 
+- (CGFloat) getSafeBottomPadding {
+    CGFloat bottomPadding = 0.0f;
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        bottomPadding = window.safeAreaInsets.bottom;
+    }
+
+    return bottomPadding;
+}
+
 - (BOOL)isViewPortrait {
   return UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
 }
 
 @end
-
