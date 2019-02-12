@@ -157,7 +157,7 @@ Using config:
 var config = {
     title: "Select a quantity",
     items:[
-        data.numbers
+        [data.numbers]
     ],
     positiveButtonText: "Done",
     negativeButtonText: "Cancel"
@@ -176,8 +176,8 @@ Using config:
 var config = {
     title: "How Many Fruit?",
     items:[
-        data.numbers,
-        data.fruits
+        [data.numbers],
+        [data.fruits]
     ],
     positiveButtonText: "Yes",
     negativeButtonText: "No"
@@ -220,8 +220,8 @@ Using config:
 var config = {
     title: "Select a quantity",
     items:[
-        data.numbers,
-        data.measurements
+        [data.numbers],
+        [data.measurements]
     ],
     theme: "dark",
     positiveButtonText: "Done",
@@ -241,10 +241,10 @@ Using config:
 var config = {
     title: "Select something",
     items:[
-        data.numbers,
-        data.fruits,
-        data.measurements,
-        data.planets
+        [data.numbers],
+        [data.fruits],
+        [data.measurements],
+        [data.planets]
     ],
     wrapWheelText: true,
     positiveButtonText: "Cool",
@@ -265,15 +265,15 @@ Using config:
 var config = {
     title: "Select something",
     items:[
-        data.numbers,
-        data.fruits
+        [data.numbers],
+        [data.fruits]
     ],
     defaultItems: [
         //the number '2'
         {index:0, value: data.numbers[2]},
 
         //the value 'Pear'
-        {index:1, value: data.fruits[2]} 
+        {index:1, value: data.fruits[2]}
     ]
 };
 
@@ -324,8 +324,8 @@ We would use the config, specifying the `displayKey` field to use `text` (if no 
 var config = {
     title: "Select quantity",
     items:[
-        data.numbers,
-        data.measurements
+        [data.numbers],
+        [data.measurements]
     ],
     wrapWheelText: true,
     positiveButtonText: "Done",
