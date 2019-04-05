@@ -259,6 +259,9 @@ Produces:
 
 
 ## Default items
+
+**Note:** If you have `n` `items`, then you must set `n` `defaultItems`, meaning the number of `items` and number of `defaultItems` must be the same
+
 Using config:
 
 ```js
