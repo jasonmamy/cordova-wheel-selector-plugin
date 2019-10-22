@@ -72,6 +72,15 @@ var config = {
 
 ```
 
+you can also set `UIUserInterfaceStyle` to Light in your Info.plist file to force the UI to light.
+
+Copy + Paste this into your `Info.plist`
+
+```
+<key>UIUserInterfaceStyle</key>
+<string>Light</string>
+```
+
 ## The functions that can be called
 
 ```js
