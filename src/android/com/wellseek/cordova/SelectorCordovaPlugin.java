@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -215,29 +216,37 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
 
     public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color) {
         float myTextSize = 10;
+        try{
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                // Do something for lollipop and above versions
+                numberPicker.setTextColor(color);
+                numberPicker.setOutlineAmbientShadowColor(color);
+            } else{
+                // do something for phones running an SDK before lollipop
+                Field selectorWheelPaintField = numberPicker.getClass()
+                        .getDeclaredField("mSelectorWheelPaint");
+                selectorWheelPaintField.setAccessible(true);
+                ((Paint) selectorWheelPaintField.get(numberPicker)).setColor(color);
+                numberPicker.invalidate();
+            }
+        } catch (NoSuchFieldException e) {
+            System.out.println("setNumberPickerTextColor");
+        } catch (IllegalAccessException e) {
+            System.out.println("setNumberPickerTextColor");
+        }
         final int count = numberPicker.getChildCount();
         for (int i = 0; i < count; i++) {
             View child = numberPicker.getChildAt(i);
             if (child instanceof EditText) {
                 try {
-                    Field selectorWheelPaintField = numberPicker.getClass()
-                            .getDeclaredField("mSelectorWheelPaint");
-                    selectorWheelPaintField.setAccessible(true);
-                    ((Paint) selectorWheelPaintField.get(numberPicker)).setColor(color);
                     ((EditText) child).setTextColor(color);
-
                     //this setTextSize works, but given the 'mTextSize' variable is set in ctor
                     //the initial values are small, once activated they get larger
                     //https://android.googlesource.com/platform/frameworks/base.git/+/android-cts-4.2_r1/core/java/android/widget/NumberPicker.java
                     //((Paint) selectorWheelPaintField.get(numberPicker)).setTextSize(48);
 
-                    numberPicker.invalidate();
-                    return true;
-                } catch (NoSuchFieldException e) {
-                    System.out.println("setNumberPickerTextColor");
-                } catch (IllegalAccessException e) {
-                    System.out.println("setNumberPickerTextColor");
-                } catch (IllegalArgumentException e) {
+//                    return true;
+                }catch (IllegalArgumentException e) {
                     System.out.println("setNumberPickerTextColor");
                 }
             }
