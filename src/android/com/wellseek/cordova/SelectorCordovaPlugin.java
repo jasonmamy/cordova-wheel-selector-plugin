@@ -25,6 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -218,11 +220,13 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
         float myTextSize = 10;
         try{
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-                // Do something for lollipop and above versions
-                numberPicker.setTextColor(color);
-                numberPicker.setOutlineAmbientShadowColor(color);
+                // API >= 29
+                Method setColorMethod = numberPicker.getClass().getMethod("setTextColor", int.class);
+                setColorMethod.invoke(numberPicker, color);
+//                numberPicker.setTextColor(color);
+//                numberPicker.setOutlineAmbientShadowColor(color);
             } else{
-                // do something for phones running an SDK before lollipop
+                // API < 29
                 Field selectorWheelPaintField = numberPicker.getClass()
                         .getDeclaredField("mSelectorWheelPaint");
                 selectorWheelPaintField.setAccessible(true);
@@ -232,6 +236,10 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
         } catch (NoSuchFieldException e) {
             System.out.println("setNumberPickerTextColor");
         } catch (IllegalAccessException e) {
+            System.out.println("setNumberPickerTextColor");
+        } catch (NoSuchMethodException e){
+            System.out.println("setNumberPickerTextColor");
+        }catch (InvocationTargetException e){
             System.out.println("setNumberPickerTextColor");
         }
         final int count = numberPicker.getChildCount();
