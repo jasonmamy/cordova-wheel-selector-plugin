@@ -219,7 +219,7 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
     public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color) {
         float myTextSize = 10;
         try{
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            if (android.os.Build.VERSION.SDK_INT >= 29){
                 // API >= 29
                 Method setColorMethod = numberPicker.getClass().getMethod("setTextColor", int.class);
                 setColorMethod.invoke(numberPicker, color);
