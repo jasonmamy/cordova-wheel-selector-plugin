@@ -280,13 +280,13 @@ var config = {
         [data.numbers],
         [data.fruits]
     ],
-    defaultItems: [
+    defaultItems: {
         //the number '2'
         {index:0, value: data.numbers[2]},
 
         //the value 'Pear'
         {index:1, value: data.fruits[2]}
-    ]
+    }
 };
 
 ```
